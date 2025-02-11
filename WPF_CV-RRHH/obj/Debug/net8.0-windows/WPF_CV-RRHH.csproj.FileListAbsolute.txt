@@ -66,3 +66,4 @@ F:\Desarollo de interfaces\TRABAJO\WPF_CV-RRHH\WPF_CV-RRHH\obj\Debug\net8.0-wind
 F:\Desarollo de interfaces\TRABAJO\WPF_CV-RRHH\WPF_CV-RRHH\obj\Debug\net8.0-windows\WPF_CV-RRHH.pdb
 F:\Desarollo de interfaces\TRABAJO\WPF_CV-RRHH\WPF_CV-RRHH\obj\Debug\net8.0-windows\WPF_CV-RRHH.genruntimeconfig.cache
 F:\Desarollo de interfaces\TRABAJO\WPF_CV-RRHH\WPF_CV-RRHH\obj\Debug\net8.0-windows\ref\WPF_CV-RRHH.dll
+F:\Desarollo de interfaces\TRABAJO\WPF_CV-RRHH\WPF_CV-RRHH\obj\Debug\net8.0-windows\WPF_CV-RRHH.sourcelink.json

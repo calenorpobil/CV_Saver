@@ -6,8 +6,67 @@
         xmlns:local="clr-namespace:WPF_CV_RRHH"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
-    <Grid>
-        <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" Width="600" Height="300"/>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!--Titulo-->
+            <RowDefinition Height="Auto"/> <!--Formularios-->
+            <RowDefinition Height="*"/>     <!--DataGrid-->
+        </Grid.RowDefinitions>
+
+
+        <!-- Contenedor de campos de entrada -->
+        <StackPanel Grid.Row="0" Orientation="Vertical" Margin="0,0,0,0">
+
+            <!-- Título grande -->
+            <Label Grid.Row="0" 
+                   Content="Formulario de Datos" 
+                   FontSize="24" 
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,20"/>
+        </StackPanel>
+
+        <!-- Contenedor horizontal para los campos -->
+        <StackPanel Grid.Row="1" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Left"
+                    Margin="0,0,0,20">
+
+            <!-- Campo 1 -->
+            <StackPanel Orientation="Vertical" Margin="0,0,20,0">
+                <Label Content="Base de Datos:"/>
+                <TextBox x:Name="txBaseDeDatos" 
+                         Text="{Binding BaseDeDatos, UpdateSourceTrigger=PropertyChanged}" 
+
+                         Width="200"
+                         Height="25"
+                         Padding="2"/>
+            </StackPanel>
+
+            <!-- Campo 2 -->
+            <StackPanel Orientation="Vertical" Margin="0,0,20,0">
+                <Label Content="Tabla:"/>
+                <TextBox x:Name="txTabla" 
+                         Text="{Binding Tabla, UpdateSourceTrigger=PropertyChanged}" 
+                         Width="200"
+                         Height="25"
+                         Padding="2"/>
+            </StackPanel>
+
+            <!-- Campo 3 -->
+            <StackPanel Orientation="Vertical">
+                <Label Content="Otro:" />
+                <TextBox x:Name="txOtro" 
+                         Text="{Binding Otro, UpdateSourceTrigger=PropertyChanged}" 
+                         Width="200"
+                         Height="25"
+                         Padding="2"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,0,0,20">
+
+            <DataGrid x:Name="dataGrid" AutoGenerateColumns="True"/>
+        </StackPanel>
 
     </Grid>
 </Window>

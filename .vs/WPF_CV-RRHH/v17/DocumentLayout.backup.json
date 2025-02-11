@@ -30,8 +30,33 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "F:\\Desarollo de interfaces\\TRABAJO\\WPF_CV-RRHH\\WPF_CV-RRHH\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "WPF_CV-RRHH\\MainWindow.xaml.cs",
+              "ToolTip": "F:\\Desarollo de interfaces\\TRABAJO\\WPF_CV-RRHH\\WPF_CV-RRHH\\MainWindow.xaml.cs",
+              "RelativeToolTip": "WPF_CV-RRHH\\MainWindow.xaml.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAA2wB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T20:03:00.973Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "F:\\Desarollo de interfaces\\TRABAJO\\WPF_CV-RRHH\\WPF_CV-RRHH\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "WPF_CV-RRHH\\MainWindow.xaml",
+              "ToolTip": "F:\\Desarollo de interfaces\\TRABAJO\\WPF_CV-RRHH\\WPF_CV-RRHH\\MainWindow.xaml",
+              "RelativeToolTip": "WPF_CV-RRHH\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-02-11T19:36:25.245Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
@@ -46,38 +71,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "F:\\Desarollo de interfaces\\TRABAJO\\WPF_CV-RRHH\\WPF_CV-RRHH\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "WPF_CV-RRHH\\MainWindow.xaml",
-              "ToolTip": "F:\\Desarollo de interfaces\\TRABAJO\\WPF_CV-RRHH\\WPF_CV-RRHH\\MainWindow.xaml",
-              "RelativeToolTip": "WPF_CV-RRHH\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-10T17:33:20.978Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "F:\\Desarollo de interfaces\\TRABAJO\\WPF_CV-RRHH\\WPF_CV-RRHH\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "WPF_CV-RRHH\\MainWindow.xaml.cs",
-              "ToolTip": "F:\\Desarollo de interfaces\\TRABAJO\\WPF_CV-RRHH\\WPF_CV-RRHH\\MainWindow.xaml.cs",
-              "RelativeToolTip": "WPF_CV-RRHH\\MainWindow.xaml.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAAwCoAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T17:33:20.926Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
               "Title": "App.xaml.cs",
               "DocumentMoniker": "F:\\Desarollo de interfaces\\TRABAJO\\WPF_CV-RRHH\\WPF_CV-RRHH\\App.xaml.cs",
               "RelativeDocumentMoniker": "WPF_CV-RRHH\\App.xaml.cs",
               "ToolTip": "F:\\Desarollo de interfaces\\TRABAJO\\WPF_CV-RRHH\\WPF_CV-RRHH\\App.xaml.cs",
               "RelativeToolTip": "WPF_CV-RRHH\\App.xaml.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAswB8AAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-10T18:12:11.624Z",
               "EditorCaption": ""
@@ -92,8 +92,7 @@
               "RelativeToolTip": "WPF_CV-RRHH\\AssemblyInfo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T17:34:53.593Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-10T17:34:53.593Z"
             }
           ]
         }
