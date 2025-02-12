@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_CV_RRHH"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/> <!--Titulo-->
@@ -23,7 +24,7 @@
                    FontSize="24" 
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
-                   Margin="0,0,0,20"/>
+                   Margin="0,0,0,8"/>
         </StackPanel>
 
         <!-- Contenedor horizontal para los campos -->
@@ -34,10 +35,19 @@
 
             <!-- Campo 1 -->
             <StackPanel Orientation="Vertical" Margin="0,0,20,0">
-                <Label Content="Base de Datos:"/>
+                <Label Content="Base de Datos:" RenderTransformOrigin="0.5,0.5">
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
                 <TextBox x:Name="txBaseDeDatos" 
+                         KeyDown="TextBox_KeyDown"
                          Text="{Binding BaseDeDatos, UpdateSourceTrigger=PropertyChanged}" 
-
                          Width="200"
                          Height="25"
                          Padding="2"/>
@@ -47,6 +57,7 @@
             <StackPanel Orientation="Vertical" Margin="0,0,20,0">
                 <Label Content="Tabla:"/>
                 <TextBox x:Name="txTabla" 
+                         KeyDown="TextBox_KeyDown"
                          Text="{Binding Tabla, UpdateSourceTrigger=PropertyChanged}" 
                          Width="200"
                          Height="25"
@@ -57,6 +68,7 @@
             <StackPanel Orientation="Vertical">
                 <Label Content="Otro:" />
                 <TextBox x:Name="txOtro" 
+                         KeyDown="TextBox_KeyDown"
                          Text="{Binding Otro, UpdateSourceTrigger=PropertyChanged}" 
                          Width="200"
                          Height="25"
