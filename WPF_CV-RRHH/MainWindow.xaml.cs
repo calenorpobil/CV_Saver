@@ -24,38 +24,70 @@ namespace WPF_CV_RRHH
     {
 
 
-        private string _baseDeDatos, _bkBaseDeDatos;
-        private static string baseDeDatos = "CV-RRHH";
-        private string _tabla, _bkTabla;
-        private string _ordenador, _bkOrdenador;
+        private string _nombreEntrevistado, _bkNombreEntrevistado;
+        private static string nombreEntrevistado = "CV-RRHH";
+        private string _dni, _bkDni;
+        private string _otro, _bkOtro;
+        private string _direccion, _años, _experiencia;
         private string _selectQuery;
         private string connectionString;
 
-        public string BaseDeDatos
+        public string NombreEntrevistado
+
         {
-            get => _baseDeDatos;
+            get => _nombreEntrevistado;
             set
             {
-                _baseDeDatos = value;
-                OnPropertyChanged(nameof(BaseDeDatos));
+                _nombreEntrevistado = value;
+                OnPropertyChanged(nameof(NombreEntrevistado));
             }
         }
-        public string Tabla
+        public string Dni
         {
-            get => _tabla;
+            get => _dni;
             set
             {
-                _tabla = value;
-                OnPropertyChanged(nameof(Tabla));
+                _dni = value;
+                OnPropertyChanged(nameof(Dni));
             }
         }
         public string Otro
         {
-            get => _ordenador;
+            get => _otro;
             set
             {
-                _ordenador = value;
+                _otro = value;
                 OnPropertyChanged(nameof(Otro));
+            }
+        }
+
+        public string Direccion
+        {
+            get => _direccion;
+            set
+            {
+                _direccion = value;
+                OnPropertyChanged(nameof(Direccion));
+            }
+        }
+
+        public string Años
+        {
+            get => _años;
+            set
+            {
+                _años = value;
+                OnPropertyChanged(nameof(Años));
+            }
+        }
+
+        public string Experiencia
+        {
+            get => _experiencia;
+            set
+            {
+                _experiencia = value;
+                OnPropertyChanged(nameof(Experiencia));
             }
         }
 
@@ -64,10 +96,10 @@ namespace WPF_CV_RRHH
         public MainWindow()
         {
             //Inicialización de los valores por Defecto para las consultas:
-            _tabla = "EMPLEADOS";
-            _selectQuery = "SELECT * FROM " + _tabla;
-            _baseDeDatos = baseDeDatos = "CV-RRHH";
-            _ordenador = "DESKTOP-MDAC0QE\\SQLEXPRESS";
+            _dni = "";
+            _selectQuery = "SELECT * FROM " + _dni;
+            _nombreEntrevistado = nombreEntrevistado = "";
+            _otro = "DESKTOP-MDAC0QE\\SQLEXPRESS";
 
 
             //init:
@@ -112,18 +144,17 @@ namespace WPF_CV_RRHH
             if (e.Key == Key.Enter)
             {
 
-
                 // Lógica con el dato (ej: enviar a base de datos)
 
-                if(!string.Equals(BaseDeDatos, _bkBaseDeDatos) || 
-                    !string.Equals(Tabla, _bkTabla) || 
-                    !string.Equals(Otro, _bkOrdenador))
+                if(!string.Equals(NombreEntrevistado, _bkNombreEntrevistado) || 
+                    !string.Equals(Dni, _bkDni) || 
+                    !string.Equals(Otro, _bkOtro))
                 {
-                    _bkBaseDeDatos = BaseDeDatos;
-                    _bkTabla = Tabla;
-                    _bkOrdenador = Otro;
+                    _bkNombreEntrevistado = NombreEntrevistado;
+                    _bkDni = Dni;
+                    _bkOtro = Otro;
 
-                    MessageBox.Show($"Texto guardado: {BaseDeDatos}");
+                    //MessageBox.Show($"Texto guardado: {NombreEntrevistado}");
                     Cargar();
 
 
@@ -135,15 +166,30 @@ namespace WPF_CV_RRHH
             }
         }
 
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show($"Texto guardado: {NombreEntrevistado}");
+            Direccion = "1";
+        }
 
 
-        //RECOGIDA DE DATOS
+
+
+        //MUESTRA DE DATOS
         private async Task CargarDatosAsync()
         {
+            string nombre = NombreEntrevistado;
             //Actualización de strings para cuando se cambie la tabla:
-            _selectQuery = "SELECT * FROM " + _tabla;
-            connectionString = String.Concat("Server=",_ordenador,"; Database=",
-            _baseDeDatos, "; Integrated Security=True; TrustServerCertificate=True");
+            if (nombre.Length > 0)
+            {
+                _selectQuery = String.Concat("SELECT * FROM EMPLEADOS WHERE contains(nombre, '", nombre,"')");
+            }
+            else
+            {
+                _selectQuery = "SELECT * FROM EMPLEADOS";
+            }
+            connectionString = String.Concat("Server=",Otro,"; Database=CV-RRHH", 
+                "; Integrated Security=True; TrustServerCertificate=True");
 
             using (var connection = new SqlConnection(connectionString))
             {

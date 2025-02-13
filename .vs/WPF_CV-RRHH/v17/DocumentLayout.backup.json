@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\Carlos\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|d:\\carlos\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|d:\\carlos\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|d:\\carlos\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|d:\\carlos\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,32 +30,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "D:\\Carlos\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "WPF_CV-RRHH\\MainWindow.xaml.cs",
               "ToolTip": "D:\\Carlos\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml.cs",
               "RelativeToolTip": "WPF_CV-RRHH\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAIMAAAAAAAAAAAAUwJwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAswJ4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-11T20:03:00.973Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "D:\\Carlos\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml",
               "RelativeDocumentMoniker": "WPF_CV-RRHH\\MainWindow.xaml",
@@ -87,8 +79,7 @@
               "RelativeToolTip": "WPF_CV-RRHH\\App.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T18:12:11.624Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-10T18:12:11.624Z"
             },
             {
               "$type": "Document",

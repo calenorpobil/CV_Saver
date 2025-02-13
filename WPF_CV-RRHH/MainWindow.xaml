@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_CV_RRHH"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded"
+        Title="MainWindow" Height="450" Width="700" Loaded="Window_Loaded"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/> <!--Titulo-->
             <RowDefinition Height="Auto"/> <!--Formularios-->
-            <RowDefinition Height="*"/>     <!--DataGrid-->
+            <RowDefinition Height="Auto"/>     <!--DataGrid-->
+            <RowDefinition Height="Auto"/> <!--Datos-->
         </Grid.RowDefinitions>
 
 
@@ -20,7 +21,7 @@
 
             <!-- Título grande -->
             <Label Grid.Row="0" 
-                   Content="Formulario de Datos" 
+                   Content="VENTANA DE ENTREVISTAS" 
                    FontSize="24" 
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
@@ -31,11 +32,12 @@
         <StackPanel Grid.Row="1" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Left"
-                    Margin="0,0,0,20">
+                    Margin="0,0,0,20"
+                    Width="Auto">
 
             <!-- Campo 1 -->
             <StackPanel Orientation="Vertical" Margin="0,0,20,0">
-                <Label Content="Base de Datos:" RenderTransformOrigin="0.5,0.5">
+                <Label Content="Nombre del entrevistado:" RenderTransformOrigin="0.5,0.5">
                     <Label.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -45,9 +47,9 @@
                         </TransformGroup>
                     </Label.RenderTransform>
                 </Label>
-                <TextBox x:Name="txBaseDeDatos" 
+                <TextBox x:Name="txEntrevistado" 
                          KeyDown="TextBox_KeyDown"
-                         Text="{Binding BaseDeDatos, UpdateSourceTrigger=PropertyChanged}" 
+                         Text="{Binding NombreEntrevistado, UpdateSourceTrigger=PropertyChanged}" 
                          Width="200"
                          Height="25"
                          Padding="2"/>
@@ -55,10 +57,10 @@
 
             <!-- Campo 2 -->
             <StackPanel Orientation="Vertical" Margin="0,0,20,0">
-                <Label Content="Tabla:"/>
-                <TextBox x:Name="txTabla" 
+                <Label Content="DNI:"/>
+                <TextBox x:Name="txDni" 
                          KeyDown="TextBox_KeyDown"
-                         Text="{Binding Tabla, UpdateSourceTrigger=PropertyChanged}" 
+                         Text="{Binding Dni, UpdateSourceTrigger=PropertyChanged}" 
                          Width="200"
                          Height="25"
                          Padding="2"/>
@@ -66,7 +68,7 @@
 
             <!-- Campo 3 -->
             <StackPanel Orientation="Vertical">
-                <Label Content="Otro:" />
+                <Label Content="Equipo:" />
                 <TextBox x:Name="txOtro" 
                          KeyDown="TextBox_KeyDown"
                          Text="{Binding Otro, UpdateSourceTrigger=PropertyChanged}" 
@@ -76,8 +78,61 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,0,0,20">
+            <Grid Margin="0" Width="Auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <DataGrid x:Name="dataGrid" AutoGenerateColumns="True"/>
+                <StackPanel Orientation="Vertical" Grid.Column="0" Height="Auto">
+                    <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" MouseDown="Row_DoubleClick">
+                    </DataGrid>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Column="1" Height="Auto" VerticalAlignment="Center">
+                    <Button Padding="2" Margin="8">➕ Registrar</Button>
+                    <Button Padding="2" Margin="8">🗑 Borrar</Button>
+                </StackPanel>
+                
+            </Grid>
+
+        </StackPanel>
+        <StackPanel Grid.Row="3" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Left"
+            Margin="0,0,0,20">
+
+            <!-- Campo 1 -->
+            <StackPanel Orientation="Vertical" Margin="0,0,20,0">
+                <Label Content="Dirección: " RenderTransformOrigin="0.5,0.5"/>
+                <TextBox x:Name="txDireccion" 
+                 KeyDown="TextBox_KeyDown"
+                 Text="{Binding Direccion, UpdateSourceTrigger=PropertyChanged}" 
+                 Width="200"
+                 Height="25"
+                 Padding="2"/>
+            </StackPanel>
+
+            <!-- Campo 2 -->
+            <StackPanel Orientation="Vertical" Margin="0,0,20,0">
+                <Label Content="Años:"/>
+                <TextBox x:Name="txAños" 
+                 KeyDown="TextBox_KeyDown"
+                 Text="{Binding Años, UpdateSourceTrigger=PropertyChanged}" 
+                 Width="200"
+                 Height="25"
+                 Padding="2"/>
+            </StackPanel>
+
+            <!-- Campo 3 -->
+            <StackPanel Orientation="Vertical">
+                <Label Content="Experiencia:" />
+                <TextBox x:Name="txCurriculum" 
+                 KeyDown="TextBox_KeyDown"
+                 Text="{Binding Experiencia, UpdateSourceTrigger=PropertyChanged}" 
+                 Width="200"
+                 Height="25"
+                 Padding="2"/>
+            </StackPanel>
         </StackPanel>
 
     </Grid>
