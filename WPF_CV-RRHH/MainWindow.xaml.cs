@@ -1,7 +1,9 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_CV_RRHH.Modelos;
 
 namespace WPF_CV_RRHH
 {
@@ -31,6 +34,9 @@ namespace WPF_CV_RRHH
         private string _direccion, _años, _experiencia;
         private string _selectQuery;
         private string connectionString;
+        private int _codSeleccionado;
+        private Informe InformeMostrar;
+        public ObservableCollection<Empleado> Empleados { get; set; }
 
         public string NombreEntrevistado
 
@@ -99,7 +105,8 @@ namespace WPF_CV_RRHH
             _dni = "";
             _selectQuery = "SELECT * FROM " + _dni;
             _nombreEntrevistado = nombreEntrevistado = "";
-            _otro = "DESKTOP-MDAC0QE\\SQLEXPRESS";
+            _otro = "DESKTOP-NNKTF0L\\SQLEXPRESS";
+            //_otro = "DESKTOP-MDAC0QE\\SQLEXPRESS";
 
 
             //init:
@@ -117,20 +124,67 @@ namespace WPF_CV_RRHH
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            string consultaEmpleado = consultaDataRow();
+
+            Cargar(consultaEmpleado);
         }
 
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Cargar();
+            string consultaEmpleado = consultaDataRow();
+            Cargar(consultaEmpleado);
+        }
+
+        // HACER CLICK EN DATAGRID
+        private void dataGrid_CurrentCellChanged(object sender, EventArgs e)
+        {
+            dataGrid.CommitEdit();
+
+            var selectedCell = dataGrid.CurrentCell;
+            if (!selectedCell.IsValid) return;
+            int len = dataGrid.Columns.Count;
+            // Obtener el valor de la columna "CODIGO"
+            var column = dataGrid.Columns[0]; 
+            //dataGrid.Columns["NombreColumna"]
+            var cellContent = column.GetCellContent(selectedCell.Item);
+
+            if (cellContent is TextBlock textBlock)
+            {
+                string valor = textBlock.Text;
+                _codSeleccionado = int.Parse(valor);
+            }
+            CargarDatosAsyncInformes();
+
         }
 
 
-        private async void Cargar()
+        //CARGAR EL DATAGRID
+        private async void Cargar(string consulta)
         {
+
+            connectionString = String.Concat("Server=", Otro, "; Database=CV-RRHH",
+            "; Integrated Security=True; TrustServerCertificate=True");
+
             try
             {
-                await CargarDatosAsync(); // Carga asíncrona
+                await CargarDatosAsyncDataGrid(consulta); // Carga asíncrona
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        //CARGAR EL INFORME
+        private async void CargarInforme(string consulta)
+        {
+
+            connectionString = String.Concat("Server=", Otro, "; Database=CV-RRHH",
+            "; Integrated Security=True; TrustServerCertificate=True");
+
+            try
+            {
+                await CargarDatosAsyncInformes(); // Carga asíncrona
             }
             catch (Exception ex)
             {
@@ -143,9 +197,7 @@ namespace WPF_CV_RRHH
         {
             if (e.Key == Key.Enter)
             {
-
                 // Lógica con el dato (ej: enviar a base de datos)
-
                 if(!string.Equals(NombreEntrevistado, _bkNombreEntrevistado) || 
                     !string.Equals(Dni, _bkDni) || 
                     !string.Equals(Otro, _bkOtro))
@@ -155,15 +207,24 @@ namespace WPF_CV_RRHH
                     _bkOtro = Otro;
 
                     //MessageBox.Show($"Texto guardado: {NombreEntrevistado}");
-                    Cargar();
-
-
+                    string consultaEmpleado = consultaDataRow();
+                    Cargar(consultaEmpleado);
                 }
-
-
-
-
             }
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            bool borradoExitoso = await BorrarEmpleadoAsync(_codSeleccionado);
+
+            if (borradoExitoso)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    MessageBox.Show("Empleado borrado correctamente");
+                });
+            }
+
         }
 
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -174,28 +235,39 @@ namespace WPF_CV_RRHH
 
 
 
-
-        //MUESTRA DE DATOS
-        private async Task CargarDatosAsync()
+        private string consultaDataRow()
         {
             string nombre = NombreEntrevistado;
+            string dni = Dni;
+            string consulta = "";
+
             //Actualización de strings para cuando se cambie la tabla:
-            if (nombre.Length > 0)
+            consulta = "SELECT * FROM EMPLEADOS";
+            if (nombre.Length > 0 && dni.Length > 0)
             {
-                _selectQuery = String.Concat("SELECT * FROM EMPLEADOS WHERE contains(nombre, '", nombre,"')");
+                consulta += String.Concat(
+                    " WHERE NOMBRE like '%", nombre,
+                    "%' and DNI like '%", dni, "%'");
             }
-            else
+            else if (dni.Length > 0)
             {
-                _selectQuery = "SELECT * FROM EMPLEADOS";
+                consulta += String.Concat(" WHERE DNI like '%", dni, "%'");
             }
-            connectionString = String.Concat("Server=",Otro,"; Database=CV-RRHH", 
-                "; Integrated Security=True; TrustServerCertificate=True");
+            else if (nombre.Length > 0)
+            {
+                consulta += String.Concat(" WHERE NOMBRE like '%", nombre, "%'");
+            }
+            return consulta;
+
+        }
+        //MUESTRA DE DATOS
+        private async Task CargarDatosAsyncDataGrid(string consultaEmpleado)
+        {
 
             using (var connection = new SqlConnection(connectionString))
             {
-                await connection.OpenAsync(); // 👈 Método asíncrono
-
-                using (var command = new SqlCommand(_selectQuery, connection))
+                await connection.OpenAsync(); // Método asíncrono
+                using (var command = new SqlCommand(consultaEmpleado, connection))
                 {
                     var dataTable = new DataTable();
                     var adapter = new SqlDataAdapter(command);
@@ -208,8 +280,86 @@ namespace WPF_CV_RRHH
                     });
                 }
             }
+
         }
 
+        //CONSULTA INFORMES
+        private async Task CargarDatosAsyncInformes()
+        {
+            string consultaEmpleado = "SELECT * FROM informe_a_fecha " +
+                "WHERE FK_CODIGO_EMP LIKE @Codigo";
 
+            using (var connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand(consultaEmpleado, connection))
+                {
+                    // Usar parámetros para evitar inyecciones SQL
+                    command.Parameters.AddWithValue("@Codigo", $"%{_codSeleccionado}%");
+
+                    // Ejecutar la consulta y leer los datos
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            // Mapear los datos a un objeto Informe
+                            var informe = new Informe
+                            {
+                                CODIGO_INF = reader.GetInt32(reader.GetOrdinal("CODIGO_INF")),
+                                FECHA = reader.GetDateTime(reader.GetOrdinal("FECHA")),
+                                FK_CODIGO_EMP = reader.GetInt32(reader.GetOrdinal("FK_CODIGO_EMP"))
+                            };
+
+                            // Actualizar la UI con el informe
+                            Dispatcher.Invoke(() =>
+                            {
+                                // Asignar el informe a una variable o propiedad
+                                escribirInforme(informe);
+                            });
+                        }
+                    }
+                }
+            }
+        }
+
+        //BORRAR EMPLEADO
+        public async Task<bool> BorrarEmpleadoAsync(int codigoEmpleado)
+        {
+            string consulta = "DELETE FROM EMPLEADOS WHERE CODIGO_INF = @CodigoEmp";
+
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand(consulta, connection))
+                    {
+                        // Parámetro para evitar inyección SQL
+                        command.Parameters.AddWithValue("@CodigoEmp", codigoEmpleado);
+
+                        // Ejecutar el comando y obtener filas afectadas
+                        int filasAfectadas = await command.ExecuteNonQueryAsync();
+
+                        // Devolver true si se eliminó al menos una fila
+                        return filasAfectadas > 0;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Manejar errores específicos de SQL
+                MessageBox.Show($"Error al borrar el informe: {ex.Message}");
+                return false;
+            }
+        }
+
+        private void escribirInforme(Informe informe)
+        {
+            Direccion = informe.FECHA.ToString();
+
+
+        }
     }
 }
