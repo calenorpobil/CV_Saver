@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_CV_RRHH"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="700" Loaded="Window_Loaded"
+        Title="MainWindow" Height="576" Width="700" Loaded="Window_Loaded"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/> <!--Titulo-->
             <RowDefinition Height="Auto"/> <!--Formularios-->
-            <RowDefinition Height="Auto"/>     <!--DataGrid-->
+            <RowDefinition Height="Auto"/> <!--DataGrid-->
             <RowDefinition Height="Auto"/> <!--Datos-->
+            <RowDefinition Height="Auto"/> <!--Informes-->
         </Grid.RowDefinitions>
 
 
@@ -136,6 +137,14 @@
                  Padding="2"/>
             </StackPanel>
         </StackPanel>
-
+        <StackPanel Grid.Row="4" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Left"
+            Margin="0,0,0,20">
+            <ListBox x:Name="listBox" 
+                    Width="Auto"
+                    Height="200" Margin="5">
+            </ListBox>
+        </StackPanel>
     </Grid>
 </Window>

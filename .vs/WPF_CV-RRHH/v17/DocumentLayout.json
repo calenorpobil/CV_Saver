@@ -1,29 +1,33 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\",
+  "WorkspaceRootPath": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|e:\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\modelos\\informe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|e:\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\modelos\\informe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\modelos\\informe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|e:\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|e:\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\modelos\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\modelos\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|e:\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|e:\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|e:\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -34,15 +38,28 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
+              "Title": "Empleado.cs",
+              "DocumentMoniker": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\Empleado.cs",
+              "RelativeDocumentMoniker": "WPF_CV-RRHH\\Modelos\\Empleado.cs",
+              "ToolTip": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\Empleado.cs",
+              "RelativeToolTip": "WPF_CV-RRHH\\Modelos\\Empleado.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAvwBgAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T09:08:18.294Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Informe.cs",
-              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\Informe.cs",
+              "DocumentMoniker": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\Informe.cs",
               "RelativeDocumentMoniker": "WPF_CV-RRHH\\Modelos\\Informe.cs",
-              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\Informe.cs",
+              "ToolTip": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\Informe.cs",
               "RelativeToolTip": "WPF_CV-RRHH\\Modelos\\Informe.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -53,22 +70,22 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml.cs",
+              "DocumentMoniker": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "WPF_CV-RRHH\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml.cs",
+              "ToolTip": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml.cs",
               "RelativeToolTip": "WPF_CV-RRHH\\MainWindow.xaml.cs",
-              "ViewState": "AgIAANMAAAAAAAAAAAAjwOIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACQBAAAAAAAAAADwvzEBAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-11T20:03:00.973Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml",
+              "DocumentMoniker": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml",
               "RelativeDocumentMoniker": "WPF_CV-RRHH\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml",
+              "ToolTip": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml",
               "RelativeToolTip": "WPF_CV-RRHH\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-02-11T19:36:25.245Z",
@@ -76,11 +93,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "App.xaml",
-              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\App.xaml",
+              "DocumentMoniker": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\App.xaml",
               "RelativeDocumentMoniker": "WPF_CV-RRHH\\App.xaml",
-              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\App.xaml",
+              "ToolTip": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\App.xaml",
               "RelativeToolTip": "WPF_CV-RRHH\\App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-02-10T17:57:13.825Z",
@@ -88,24 +105,23 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "App.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\App.xaml.cs",
+              "DocumentMoniker": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\App.xaml.cs",
               "RelativeDocumentMoniker": "WPF_CV-RRHH\\App.xaml.cs",
-              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\App.xaml.cs",
+              "ToolTip": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\App.xaml.cs",
               "RelativeToolTip": "WPF_CV-RRHH\\App.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T18:12:11.624Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-10T18:12:11.624Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "AssemblyInfo.cs",
-              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\AssemblyInfo.cs",
+              "DocumentMoniker": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\AssemblyInfo.cs",
               "RelativeDocumentMoniker": "WPF_CV-RRHH\\AssemblyInfo.cs",
-              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\AssemblyInfo.cs",
+              "ToolTip": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\AssemblyInfo.cs",
               "RelativeToolTip": "WPF_CV-RRHH\\AssemblyInfo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

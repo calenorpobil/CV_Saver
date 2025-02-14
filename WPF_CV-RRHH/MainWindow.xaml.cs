@@ -32,7 +32,6 @@ namespace WPF_CV_RRHH
         private string _dni, _bkDni;
         private string _otro, _bkOtro;
         private string _direccion, _años, _experiencia;
-        private string _selectQuery;
         private string connectionString;
         private int _codSeleccionado;
         private Informe InformeMostrar;
@@ -103,10 +102,9 @@ namespace WPF_CV_RRHH
         {
             //Inicialización de los valores por Defecto para las consultas:
             _dni = "";
-            _selectQuery = "SELECT * FROM " + _dni;
             _nombreEntrevistado = nombreEntrevistado = "";
-            _otro = "DESKTOP-NNKTF0L\\SQLEXPRESS";
-            //_otro = "DESKTOP-MDAC0QE\\SQLEXPRESS";
+            //_otro = "DESKTOP-NNKTF0L\\SQLEXPRESS";
+            _otro = "DESKTOP-MDAC0QE\\SQLEXPRESS";
 
 
             //init:
@@ -154,8 +152,7 @@ namespace WPF_CV_RRHH
                 string valor = textBlock.Text;
                 _codSeleccionado = int.Parse(valor);
             }
-            CargarDatosAsyncInformes();
-
+            CargarInforme();
         }
 
 
@@ -176,7 +173,7 @@ namespace WPF_CV_RRHH
             }
         }
         //CARGAR EL INFORME
-        private async void CargarInforme(string consulta)
+        private async void CargarInforme()
         {
 
             connectionString = String.Concat("Server=", Otro, "; Database=CV-RRHH",
@@ -301,7 +298,9 @@ namespace WPF_CV_RRHH
                     // Ejecutar la consulta y leer los datos
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        if (await reader.ReadAsync())
+                        var informes = new List<Informe>();
+
+                        while (await reader.ReadAsync())
                         {
                             // Mapear los datos a un objeto Informe
                             var informe = new Informe
@@ -310,10 +309,18 @@ namespace WPF_CV_RRHH
                                 FECHA = reader.GetDateTime(reader.GetOrdinal("FECHA")),
                                 FK_CODIGO_EMP = reader.GetInt32(reader.GetOrdinal("FK_CODIGO_EMP"))
                             };
+                            informes.Add(informe);
+
 
                             // Actualizar la UI con el informe
                             Dispatcher.Invoke(() =>
                             {
+                                listBox.ItemsSource = informes.ToList(); 
+                                listBox.DisplayMemberPath = "FECHA"; 
+
+
+
+
                                 // Asignar el informe a una variable o propiedad
                                 escribirInforme(informe);
                             });
@@ -357,6 +364,7 @@ namespace WPF_CV_RRHH
 
         private void escribirInforme(Informe informe)
         {
+            string resultado = "El empleado tiene ";
             Direccion = informe.FECHA.ToString();
 
 
