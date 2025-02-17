@@ -5,20 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_CV_RRHH"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="700" Loaded="Window_Loaded"
+        Title="MainWindow" Height="576" Width="700" Loaded="Window_Loaded"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/> <!--Titulo-->
             <RowDefinition Height="Auto"/> <!--Formularios-->
-            <RowDefinition Height="Auto"/>     <!--DataGrid-->
+            <RowDefinition Height="Auto"/> <!--DataGrid-->
             <RowDefinition Height="Auto"/> <!--Datos-->
+            <RowDefinition Height="Auto"/> <!--Informes-->
         </Grid.RowDefinitions>
 
 
-        <!-- Contenedor de campos de entrada -->
+        <!-- FILA TITULO -->
         <StackPanel Grid.Row="0" Orientation="Vertical" Margin="0,0,0,0">
-
             <!-- Título grande -->
             <Label Grid.Row="0" 
                    Content="VENTANA DE ENTREVISTAS" 
@@ -28,74 +28,77 @@
                    Margin="0,0,0,8"/>
         </StackPanel>
 
-        <!-- Contenedor horizontal para los campos -->
+        <!-- FILA CAMPOS -->
         <StackPanel Grid.Row="1" 
-                    Orientation="Horizontal" 
-                    HorizontalAlignment="Left"
+                    Orientation="Vertical"
                     Margin="0,0,0,20"
                     Width="Auto">
-
-            <!-- Campo 1 -->
-            <StackPanel Orientation="Vertical" Margin="0,0,20,0">
-                <Label Content="Nombre del entrevistado:" RenderTransformOrigin="0.5,0.5">
-                    <Label.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="0"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Label.RenderTransform>
-                </Label>
-                <TextBox x:Name="txEntrevistado" 
-                         KeyDown="TextBox_KeyDown"
-                         Text="{Binding NombreEntrevistado, UpdateSourceTrigger=PropertyChanged}" 
-                         Width="200"
-                         Height="25"
-                         Padding="2"/>
-            </StackPanel>
-
-            <!-- Campo 2 -->
-            <StackPanel Orientation="Vertical" Margin="0,0,20,0">
-                <Label Content="DNI:"/>
-                <TextBox x:Name="txDni" 
-                         KeyDown="TextBox_KeyDown"
-                         Text="{Binding Dni, UpdateSourceTrigger=PropertyChanged}" 
-                         Width="200"
-                         Height="25"
-                         Padding="2"/>
-            </StackPanel>
-
-            <!-- Campo 3 -->
-            <StackPanel Orientation="Vertical">
-                <Label Content="Equipo:" />
-                <TextBox x:Name="txOtro" 
-                         KeyDown="TextBox_KeyDown"
-                         Text="{Binding Otro, UpdateSourceTrigger=PropertyChanged}" 
-                         Width="200"
-                         Height="25"
-                         Padding="2"/>
-            </StackPanel>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,0,0,20">
             <Grid Margin="0" Width="Auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Campo 1 -->
+                <StackPanel Orientation="Vertical" Grid.Column="0" Height="Auto" Margin="0,0,20,0">
+                    <Label Content="Nombre del entrevistado:" RenderTransformOrigin="0.5,0.5"/>
+                    <TextBox x:Name="txEntrevistado" 
+                             KeyDown="TextBox_KeyDown"
+                             Text="{Binding NombreEntrevistado, UpdateSourceTrigger=PropertyChanged}" 
+                             Width="Auto"
+                             Height="25"
+                             Padding="2"/>
+                </StackPanel>
+
+                <!-- Campo 2 -->
+                <StackPanel Grid.Column="1" Orientation="Vertical" Height="Auto" Margin="0,0,20,0">
+                    <Label Content="DNI:"/>
+                    <TextBox x:Name="txDni" 
+                             KeyDown="TextBox_KeyDown"
+                             Text="{Binding Dni, UpdateSourceTrigger=PropertyChanged}" 
+                             Width="Auto"
+                             Height="25"
+                             Padding="2"/>
+                </StackPanel>
+
+                <!-- Campo 3 -->
+                <StackPanel Grid.Column="2" Height="Auto" Orientation="Vertical">
+                    <Label Content="Equipo:" />
+                    <TextBox x:Name="txOtro" 
+                             KeyDown="TextBox_KeyDown"
+                             Text="{Binding Otro, UpdateSourceTrigger=PropertyChanged}" 
+                             Width="Auto"
+                             Height="25"
+                             Padding="2"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <!--DATAGRID-->
+        <StackPanel 
+            Grid.Row="2" 
+            Orientation="Vertical" 
+            Margin="0,0,0,20">
+            <Grid Margin="0" Width="Auto" Height="Auto">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Vertical" Grid.Column="0" Height="Auto">
-                    <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" MouseDown="Row_DoubleClick">
+                <!--DataGrid-->
+                <StackPanel Orientation="Vertical" Grid.Column="0" VerticalAlignment="Bottom">
+                    <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" 
+                            CurrentCellChanged="dataGrid_CurrentCellChanged"
+                            ItemsSource="{Binding Empleados}"
+                            SelectedItem="{Binding EmpleadoSeleccionado, Mode=TwoWay}">
                     </DataGrid>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Grid.Column="1" Height="Auto" VerticalAlignment="Center">
                     <Button Padding="2" Margin="8">➕ Registrar</Button>
-                    <Button Padding="2" Margin="8">🗑 Borrar</Button>
+                    <Button Padding="2" Margin="8" Click="Button_Click">🗑 Borrar</Button>
                 </StackPanel>
-                
             </Grid>
-
         </StackPanel>
+        
         <StackPanel Grid.Row="3" 
             Orientation="Horizontal" 
             HorizontalAlignment="Left"
@@ -134,6 +137,14 @@
                  Padding="2"/>
             </StackPanel>
         </StackPanel>
-
+        <StackPanel Grid.Row="4" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Left"
+            Margin="0,0,0,20">
+            <ListBox x:Name="listBox" 
+                    Width="Auto"
+                    Height="200" Margin="5">
+            </ListBox>
+        </StackPanel>
     </Grid>
 </Window>

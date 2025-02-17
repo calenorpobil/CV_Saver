@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "biDnTkpnz54=",
+  "dgSpecHash": "m4f7RWu+xpU=",
   "success": true,
-  "projectFilePath": "D:\\Carlos\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\WPF_CV-RRHH.csproj",
+  "projectFilePath": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\WPF_CV-RRHH.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Alumno\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Alumno\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
