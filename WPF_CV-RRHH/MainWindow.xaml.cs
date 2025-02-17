@@ -188,6 +188,22 @@ namespace WPF_CV_RRHH
                 MessageBox.Show(ex.Message);
             }
         }
+        //CARGAR EL DOCUMENTOS
+        private async void CargarDocumentos()
+        {
+
+            connectionString = String.Concat("Server=", Otro, "; Database=CV-RRHH",
+            "; Integrated Security=True; TrustServerCertificate=True");
+
+            try
+            {
+                await CargarDatosAsyncDocumentos(); // Carga asíncrona
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         //AL PULSAR ENTER
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -283,51 +299,112 @@ namespace WPF_CV_RRHH
         //CONSULTA INFORMES
         private async Task CargarDatosAsyncInformes()
         {
-            string consultaEmpleado = "SELECT * FROM informe_a_fecha " +
-                "WHERE FK_CODIGO_EMP LIKE @Codigo";
+            string consulta = "SELECT * FROM informe_a_fecha WHERE FK_CODIGO_EMP LIKE @Codigo";
 
-            using (var connection = new SqlConnection(connectionString))
+            try
             {
-                await connection.OpenAsync();
-
-                using (var command = new SqlCommand(consultaEmpleado, connection))
+                using (var connection = new SqlConnection(connectionString))
                 {
-                    // Usar parámetros para evitar inyecciones SQL
-                    command.Parameters.AddWithValue("@Codigo", $"%{_codSeleccionado}%");
+                    await connection.OpenAsync();
 
-                    // Ejecutar la consulta y leer los datos
-                    using (var reader = await command.ExecuteReaderAsync())
+                    using (var command = new SqlCommand(consulta, connection))
                     {
-                        var informes = new List<Informe>();
+                        // Parámetro seguro
+                        command.Parameters.AddWithValue("@Codigo", $"%{_codSeleccionado}%");
 
-                        while (await reader.ReadAsync())
+                        // Ejecutar consulta
+                        using (var reader = await command.ExecuteReaderAsync())
                         {
-                            // Mapear los datos a un objeto Informe
-                            var informe = new Informe
+                            var informes = new ObservableCollection<Informe>();
+
+                            while (await reader.ReadAsync())
                             {
-                                CODIGO_INF = reader.GetInt32(reader.GetOrdinal("CODIGO_INF")),
-                                FECHA = reader.GetDateTime(reader.GetOrdinal("FECHA")),
-                                FK_CODIGO_EMP = reader.GetInt32(reader.GetOrdinal("FK_CODIGO_EMP"))
-                            };
-                            informes.Add(informe);
+                                // Mapear manualmente los datos
+                                var informe = new Informe
+                                {
+                                    CODIGO_INF = reader.GetInt32(reader.GetOrdinal("CODIGO_INF")),
+                                    FECHA = reader.GetDateTime(reader.GetOrdinal("FECHA")),
+                                    FK_CODIGO_EMP = reader.GetInt32(reader.GetOrdinal("FK_CODIGO_EMP"))
+                                };
+                                informes.Add(informe);
+                            }
 
-
-                            // Actualizar la UI con el informe
+                            // Actualizar UI
                             Dispatcher.Invoke(() =>
                             {
-                                listBox.ItemsSource = informes.ToList(); 
-                                listBox.DisplayMemberPath = "FECHA"; 
-
-
-
-
-                                // Asignar el informe a una variable o propiedad
-                                escribirInforme(informe);
+                                listBox.ItemsSource = informes;
+                                listBox.DisplayMemberPath = "FECHA";
                             });
                         }
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"Error SQL: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error general: {ex.Message}");
+            }
+
+        }
+
+
+        //CONSULTA INFORMES
+        private async Task CargarDatosAsyncDocumentos()
+        {
+            string consulta = "SELECT * FROM CONTENIDOS_EN_EL_CV WHERE CODIGO_INF LIKE " +
+                "(SELECT CODIGO_INF FROM INFORME_A_FECHA WHERE FK_CODIGO_EMP LIKE @Codigo)";
+
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand(consulta, connection))
+                    {
+                        // Parámetro seguro
+                        command.Parameters.AddWithValue("@Codigo", $"%{_codSeleccionado}%");
+
+                        // Ejecutar consulta
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            var documentos = new ObservableCollection<CONTENIDOS_EN_EL_CV>();
+
+                            while (await reader.ReadAsync())
+                            {
+                                // Mapear manualmente los datos
+                                var documento = new CONTENIDOS_EN_EL_CV
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                    RutaArchivo = reader.GetString(reader.GetOrdinal("RutaArchivo")),
+                                    TipoMime = reader.GetString(reader.GetOrdinal("TipoMime")),
+                                    FK_CODIGO_INF = reader.GetInt32(reader.GetOrdinal("FK_CODIGO_INF"))
+                                };
+                                documentos.Add(documento);
+                            }
+
+                            // Actualizar UI
+                            Dispatcher.Invoke(() =>
+                            {
+                                listBoxDocumentos.ItemsSource = documentos;
+                                listBoxDocumentos.DisplayMemberPath = "DOCUMENTOS"; // Asegúrate de que existe esta propiedad
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"Error SQL: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error general: {ex.Message}");
+            }
+
         }
 
         //BORRAR EMPLEADO

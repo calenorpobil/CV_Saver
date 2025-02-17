@@ -1672,11 +1672,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\WPF_CV-RRHH.csproj",
+      "projectUniqueName": "D:\\Carlos\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\WPF_CV-RRHH.csproj",
       "projectName": "WPF_CV-RRHH",
-      "projectPath": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\WPF_CV-RRHH.csproj",
+      "projectPath": "D:\\Carlos\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\WPF_CV-RRHH.csproj",
       "packagesPath": "C:\\Users\\Alumno\\.nuget\\packages\\",
-      "outputPath": "E:\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\obj\\",
+      "outputPath": "D:\\Carlos\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -89,7 +89,8 @@
                     <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" 
                             CurrentCellChanged="dataGrid_CurrentCellChanged"
                             ItemsSource="{Binding Empleados}"
-                            SelectedItem="{Binding EmpleadoSeleccionado, Mode=TwoWay}">
+                            SelectedItem="{Binding EmpleadoSeleccionado, Mode=TwoWay}"
+                              MinHeight="100">
                     </DataGrid>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Grid.Column="1" Height="Auto" VerticalAlignment="Center">
@@ -98,8 +99,50 @@
                 </StackPanel>
             </Grid>
         </StackPanel>
-        
+        <!-- INFORMES Y DOCUMENTOS -->
         <StackPanel Grid.Row="3" 
+            Orientation="Vertical" 
+            
+            Margin="0,0,0,20">
+
+            <Grid Margin="0" Width="Auto" Height="Auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Width="Auto">
+                    <TextBox x:Name="txInformes" 
+                        KeyDown="TextBox_KeyDown"
+                        Text="Informes del empleado" 
+                        Width="Auto"
+                        Height="25"
+                        Padding="2"/>
+                    <!--Informes-->
+                    <ListBox x:Name="listBox" 
+                        Width="Auto"
+                        Height="100" Margin="5" MinWidth="200">
+                    </ListBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txDocumentos" 
+                        KeyDown="TextBox_KeyDown"
+                        Text="Documentos del empleado" 
+                        Width="Auto"
+                        Height="25"
+                        Padding="2"/>
+                    <!--Documentos-->
+                    <ListBox x:Name="listBoxDocumentos" 
+                        Width="Auto"
+                        Height="100" Margin="5" MinWidth="200">
+                    </ListBox>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        
+        <!-- MÁS CAMPOS -->
+        <StackPanel Grid.Row="4" 
             Orientation="Horizontal" 
             HorizontalAlignment="Left"
             Margin="0,0,0,20">
@@ -137,14 +180,6 @@
                  Padding="2"/>
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Row="4" 
-            Orientation="Horizontal" 
-            HorizontalAlignment="Left"
-            Margin="0,0,0,20">
-            <ListBox x:Name="listBox" 
-                    Width="Auto"
-                    Height="200" Margin="5">
-            </ListBox>
-        </StackPanel>
     </Grid>
+            
 </Window>
