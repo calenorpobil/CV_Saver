@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
@@ -33,9 +34,11 @@ namespace WPF_CV_RRHH
         private string _otro, _bkOtro;
         private string _direccion, _años, _experiencia;
         private string connectionString;
-        private int _codSeleccionado;
+        private int _codSeleccionado, _informeSeleccionado;
         private Informe InformeMostrar;
         public ObservableCollection<Empleado> Empleados { get; set; }
+        Dictionary<int, int> cods_informes_en_listbox = new Dictionary<int, int>();
+
 
         public string NombreEntrevistado
 
@@ -142,9 +145,8 @@ namespace WPF_CV_RRHH
             var selectedCell = dataGrid.CurrentCell;
             if (!selectedCell.IsValid) return;
             int len = dataGrid.Columns.Count;
-            // Obtener el valor de la columna "CODIGO"
+            // Obtener el CODIGO de Empleado:
             var column = dataGrid.Columns[0]; 
-            //dataGrid.Columns["NombreColumna"]
             var cellContent = column.GetCellContent(selectedCell.Item);
 
             if (cellContent is TextBlock textBlock)
@@ -152,7 +154,7 @@ namespace WPF_CV_RRHH
                 string valor = textBlock.Text;
                 _codSeleccionado = int.Parse(valor);
             }
-            CargarInforme();
+            CargarInformes();
         }
 
 
@@ -173,7 +175,7 @@ namespace WPF_CV_RRHH
             }
         }
         //CARGAR EL INFORME
-        private async void CargarInforme()
+        private async void CargarInformes()
         {
 
             connectionString = String.Concat("Server=", Otro, "; Database=CV-RRHH",
@@ -228,16 +230,22 @@ namespace WPF_CV_RRHH
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            bool borradoExitoso = await BorrarEmpleadoAsync(_codSeleccionado);
-
-            if (borradoExitoso)
+            if (MessageBox.Show("¿Estás seguro de que quieres borrar?",
+                                "Save file",
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                Dispatcher.Invoke(() =>
-                {
-                    MessageBox.Show("Empleado borrado correctamente");
-                });
-            }
+                bool borradoExitoso = await BorrarEmpleadoAsync(_codSeleccionado);
 
+                if (borradoExitoso)
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        MessageBox.Show("Empleado borrado correctamente");
+                    });
+                }
+
+            }
         }
 
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -273,6 +281,57 @@ namespace WPF_CV_RRHH
             return consulta;
 
         }
+
+
+        /**
+         * INFORME SELECCIONADO, BUSCAR DOCUMENTOS
+         */
+        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int seleccionado = listBox.SelectedIndex;
+            if (cods_informes_en_listbox.ContainsKey(seleccionado))
+            {
+                _informeSeleccionado = cods_informes_en_listbox[seleccionado];
+            }
+            CargarDocumentos();
+
+            /*
+            var selectedCell = listBox.SelectedItem;
+            if (selectedCell != null) return;
+            // Obtener los Documentos del informe
+            using (var connect = new SqlConnection(connectionString))
+            {
+                connect.Open();
+
+                string readString = "SELECT * FROM CONTENIDOS_EN_EL_CV WHERE FK_CODIGO_INF LIKE @Codigo";
+                SqlCommand readCommand = new SqlCommand(readString, connect);
+
+                using (SqlDataReader dataRead = readCommand.ExecuteReader())
+                {
+                    if (dataRead != null)
+                    {
+                        while (dataRead.Read())
+                        {
+
+
+
+                        
+                        }
+                    }
+                }
+
+                connect.Close();
+            }*/
+
+
+        }
+
+        private void listBoxDocumentos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+
         //MUESTRA DE DATOS
         private async Task CargarDatosAsyncDataGrid(string consultaEmpleado)
         {
@@ -316,17 +375,23 @@ namespace WPF_CV_RRHH
                         using (var reader = await command.ExecuteReaderAsync())
                         {
                             var informes = new ObservableCollection<Informe>();
-
+                            int num=0;
+                            cods_informes_en_listbox.Clear();
                             while (await reader.ReadAsync())
                             {
+
                                 // Mapear manualmente los datos
+                                int codigo = reader.GetInt32(reader.GetOrdinal("CODIGO_INF"));
                                 var informe = new Informe
                                 {
-                                    CODIGO_INF = reader.GetInt32(reader.GetOrdinal("CODIGO_INF")),
+                                    CODIGO_INF = codigo,
                                     FECHA = reader.GetDateTime(reader.GetOrdinal("FECHA")),
                                     FK_CODIGO_EMP = reader.GetInt32(reader.GetOrdinal("FK_CODIGO_EMP"))
+                                    
                                 };
+                                cods_informes_en_listbox.Add(num, codigo);
                                 informes.Add(informe);
+                                num++;
                             }
 
                             // Actualizar UI
@@ -366,7 +431,7 @@ namespace WPF_CV_RRHH
                     using (var command = new SqlCommand(consulta, connection))
                     {
                         // Parámetro seguro
-                        command.Parameters.AddWithValue("@Codigo", $"%{_codSeleccionado}%");
+                        command.Parameters.AddWithValue("@Codigo", $"%{_informeSeleccionado}%");
 
                         // Ejecutar consulta
                         using (var reader = await command.ExecuteReaderAsync())
@@ -410,7 +475,7 @@ namespace WPF_CV_RRHH
         //BORRAR EMPLEADO
         public async Task<bool> BorrarEmpleadoAsync(int codigoEmpleado)
         {
-            string consulta = "DELETE FROM EMPLEADOS WHERE CODIGO_INF = @CodigoEmp";
+            string consulta = "DELETE FROM EMPLEADOS WHERE CODIGO_EMP = @CodigoEmp";
 
             try
             {

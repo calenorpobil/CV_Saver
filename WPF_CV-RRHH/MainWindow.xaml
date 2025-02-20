@@ -5,15 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_CV_RRHH"
         mc:Ignorable="d"
-        Title="MainWindow" Height="576" Width="700" Loaded="Window_Loaded"
+        Title="MainWindow" Width="550" Height="Auto" Loaded="Window_Loaded"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/> <!--Titulo-->
-            <RowDefinition Height="Auto"/> <!--Formularios-->
-            <RowDefinition Height="Auto"/> <!--DataGrid-->
-            <RowDefinition Height="Auto"/> <!--Datos-->
-            <RowDefinition Height="Auto"/> <!--Informes-->
+            <RowDefinition Height="Auto"/>
+            <!--Titulo-->
+            <RowDefinition Height="Auto"/>
+            <!--Formularios-->
+            <RowDefinition Height="Auto"/>
+            <!--DataGrid-->
+            <RowDefinition Height="Auto"/>
+            <!--Datos-->
+            <RowDefinition/>
+            <!--Informes-->
         </Grid.RowDefinitions>
 
 
@@ -112,87 +117,147 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Width="Auto">
-                    <Grid Margin="0" Width="Auto" Height="Auto">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="90*"/>
-                            <ColumnDefinition Width="10*"/>
-                        </Grid.ColumnDefinitions>
-                        <!--INFORMES-->
-                        <StackPanel Grid.Column="0">
-                            <TextBox x:Name="txInformes" 
+
+                    <Label x:Name="txInformes" 
                             KeyDown="TextBox_KeyDown"
-                            Text="Informes del empleado" 
+                            Content="Informes del empleado" 
                             Width="Auto"
                             Height="25"
                             Padding="2"/>
+                    <Grid Margin="0" Width="Auto" Height="Auto">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="85*"/>
+                            <ColumnDefinition Width="15*"/>
+                        </Grid.ColumnDefinitions>
+                        <!--INFORMES-->
+                        <StackPanel Grid.Column="0">
                             <ListBox x:Name="listBox" 
                             Width="Auto"
-                            Height="100" Margin="5" MinWidth="200">
+                            Height="100" Margin="5" SelectionChanged="listBox_SelectionChanged">
                             </ListBox>
                         </StackPanel>
                         <!--BOTONES-->
-                        <StackPanel Grid.Column="1">
-                            <Button Padding="2" Margin="2">➕ Registrar</Button>
+                        <StackPanel Grid.Column="1" 
+                                    Margin="0,8,0,0">
+                            <Button Padding="2" Margin="2">➕</Button>
+
+                            <Button Padding="2" Margin="2">✏</Button>
+                            <Button Padding="2" Margin="2">🗑</Button>
 
                         </StackPanel>
                     </Grid>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">
-                    <TextBox x:Name="txDocumentos" 
-                        KeyDown="TextBox_KeyDown"
-                        Text="Documentos del empleado" 
-                        Width="Auto"
-                        Height="25"
-                        Padding="2"/>
-                    <!--Documentos-->
-                    <ListBox x:Name="listBoxDocumentos" 
-                        Width="Auto"
-                        Height="100" Margin="5" MinWidth="200">
-                    </ListBox>
+
+                    <Label x:Name="txDocumentos" 
+                                KeyDown="TextBox_KeyDown"
+                                Content="Documentos del empleado" 
+                                Width="Auto"
+                                Height="25"
+                                Padding="2"/>
+                    <Grid Margin="0" Width="Auto" Height="Auto">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="85*"/>
+                            <ColumnDefinition Width="15*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <!--Documentos-->
+                            <ListBox x:Name="listBoxDocumentos" 
+                                Width="Auto"
+                                Height="100" Margin="5" SelectionChanged="listBoxDocumentos_SelectionChanged" >
+                            </ListBox>
+                        </StackPanel>
+
+                        <!--BOTONES-->
+                        <StackPanel Grid.Column="1"
+                                    Margin="0,8,0,0">
+                            <Button Padding="2" Margin="2">➕</Button>
+                            <Button Padding="2" Margin="2">✏</Button>
+                            <Button Padding="2" Margin="2">🗑</Button>
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
             </Grid>
         </StackPanel>
-        
-        <!-- MÁS CAMPOS -->
+
+
         <StackPanel Grid.Row="4" 
-            Orientation="Horizontal" 
-            HorizontalAlignment="Left"
+            Orientation="Vertical" 
+            
             Margin="0,0,0,20">
 
-            <!-- Campo 1 -->
-            <StackPanel Orientation="Vertical" Margin="0,0,20,0">
-                <Label Content="Dirección: " RenderTransformOrigin="0.5,0.5"/>
-                <TextBox x:Name="txDireccion" 
-                 KeyDown="TextBox_KeyDown"
-                 Text="{Binding Direccion, UpdateSourceTrigger=PropertyChanged}" 
-                 Width="200"
-                 Height="25"
-                 Padding="2"/>
-            </StackPanel>
+            <Label x:Name="txContenidos" 
+                            KeyDown="TextBox_KeyDown"
+                            Content="Informes del empleado" 
+                            Width="Auto"
+                            Height="25"
+                            Padding="2"/>
+            <Grid Margin="0" Width="Auto" Height="Auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <!-- Campo 2 -->
-            <StackPanel Orientation="Vertical" Margin="0,0,20,0">
-                <Label Content="Años:"/>
-                <TextBox x:Name="txAños" 
-                 KeyDown="TextBox_KeyDown"
-                 Text="{Binding Años, UpdateSourceTrigger=PropertyChanged}" 
-                 Width="200"
-                 Height="25"
-                 Padding="2"/>
-            </StackPanel>
+                <StackPanel Grid.Column="0" Width="Auto">
+                    <Grid Margin="0" Width="Auto" Height="Auto">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="85*"/>
+                            <ColumnDefinition Width="15*"/>
+                        </Grid.ColumnDefinitions>
+                        <!--CONTENIDOS-->
+                        <StackPanel Grid.Column="0">
+                            <ListBox x:Name="lbContenidos" 
+                            Width="Auto"
+                            Height="100" Margin="5">
+                            </ListBox>
+                        </StackPanel>
+                        <!--BOTONES-->
+                        <StackPanel Grid.Column="1" Height="{Binding ActualHeight, ElementName=lbContenidos}"
+                                    Margin="0,8,0,0">
+                            <Button Padding="2" Margin="2">➕</Button>
 
-            <!-- Campo 3 -->
-            <StackPanel Orientation="Vertical">
-                <Label Content="Experiencia:" />
-                <TextBox x:Name="txCurriculum" 
-                 KeyDown="TextBox_KeyDown"
-                 Text="{Binding Experiencia, UpdateSourceTrigger=PropertyChanged}" 
-                 Width="200"
-                 Height="25"
-                 Padding="2"/>
-            </StackPanel>
+                            <Button Padding="2" Margin="2">✏</Button>
+                            <Button Padding="2" Margin="2">🗑</Button>
+
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <Grid Margin="0" Width="Auto">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="90*"/>
+                            <RowDefinition Height="10*"/>
+                        </Grid.RowDefinitions>
+                        <!-- Campo 1 -->
+                        <DockPanel Grid.Row="0" Height="Auto" Margin="0,0,20,0">
+                            <Label x:Name="txContenido" 
+                            KeyDown="TextBox_KeyDown"
+                            Content="Selecciona un contenido"
+                            Width="Auto"
+                            Height="25"
+                            Padding="2"/>
+                        </DockPanel>
+                        <DockPanel Grid.Row="1" Height="Auto">
+                            <TextBox VerticalAlignment="Stretch"   
+                                     Height="50"
+                                     TextWrapping="Wrap"
+                                     AcceptsReturn="True"
+                                     VerticalScrollBarVisibility="Auto"/>
+                        </DockPanel>
+                        <DockPanel Grid.Row="2" VerticalAlignment="Bottom">
+                            <Button Padding="2" Margin="8"  VerticalAlignment="Bottom">✔ Confirmar</Button>
+                        </DockPanel>
+                    </Grid>
+
+
+
+
+                </StackPanel>
+            </Grid>
         </StackPanel>
     </Grid>
-            
+
 </Window>
