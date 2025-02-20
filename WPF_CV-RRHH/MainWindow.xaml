@@ -112,17 +112,30 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Width="Auto">
-                    <TextBox x:Name="txInformes" 
-                        KeyDown="TextBox_KeyDown"
-                        Text="Informes del empleado" 
-                        Width="Auto"
-                        Height="25"
-                        Padding="2"/>
-                    <!--Informes-->
-                    <ListBox x:Name="listBox" 
-                        Width="Auto"
-                        Height="100" Margin="5" MinWidth="200">
-                    </ListBox>
+                    <Grid Margin="0" Width="Auto" Height="Auto">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90*"/>
+                            <ColumnDefinition Width="10*"/>
+                        </Grid.ColumnDefinitions>
+                        <!--INFORMES-->
+                        <StackPanel Grid.Column="0">
+                            <TextBox x:Name="txInformes" 
+                            KeyDown="TextBox_KeyDown"
+                            Text="Informes del empleado" 
+                            Width="Auto"
+                            Height="25"
+                            Padding="2"/>
+                            <ListBox x:Name="listBox" 
+                            Width="Auto"
+                            Height="100" Margin="5" MinWidth="200">
+                            </ListBox>
+                        </StackPanel>
+                        <!--BOTONES-->
+                        <StackPanel Grid.Column="1">
+                            <Button Padding="2" Margin="2">➕ Registrar</Button>
+
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">
