@@ -1,10 +1,13 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Net.Http.Headers;
+using System.Reflection.PortableExecutable;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -32,14 +35,27 @@ namespace WPF_CV_RRHH
         private static string nombreEntrevistado = "CV-RRHH";
         private string _dni, _bkDni;
         private string _otro, _bkOtro;
-        private string _direccion, _años, _experiencia;
+        private string _direccion, _años, _experiencia, _empleado;
         private string connectionString;
         private int _codSeleccionado, _informeSeleccionado;
         private Informe InformeMostrar;
         public ObservableCollection<Empleado> Empleados { get; set; }
         Dictionary<int, int> cods_informes_en_listbox = new Dictionary<int, int>();
+        Empleado empActual;
 
 
+
+        private Empleado _empleadoSeleccionado;
+        public Empleado EmpleadoSeleccionado
+        {
+            get => _empleadoSeleccionado;
+            set
+            {
+                _empleadoSeleccionado = value;
+                OnPropertyChanged(nameof(Empleado));
+                // Lógica cuando cambia la selección
+            }
+        }
         public string NombreEntrevistado
 
         {
@@ -100,14 +116,13 @@ namespace WPF_CV_RRHH
         }
 
 
-
         public MainWindow()
         {
             //Inicialización de los valores por Defecto para las consultas:
             _dni = "";
             _nombreEntrevistado = nombreEntrevistado = "";
-            //_otro = "DESKTOP-NNKTF0L\\SQLEXPRESS";
-            _otro = "DESKTOP-MDAC0QE\\SQLEXPRESS";
+            _otro = "DESKTOP-NNKTF0L\\SQLEXPRESS";
+            //_otro = "DESKTOP-MDAC0QE\\SQLEXPRESS";
 
 
             //init:
@@ -146,15 +161,76 @@ namespace WPF_CV_RRHH
             if (!selectedCell.IsValid) return;
             int len = dataGrid.Columns.Count;
             // Obtener el CODIGO de Empleado:
-            var column = dataGrid.Columns[0]; 
-            var cellContent = column.GetCellContent(selectedCell.Item);
+            _codSeleccionado = getCodigoDataGrid();
+
+            lbNombre.Content = getNombreDataGrid();
+            empActual = new Empleado(getNombreDataGrid(), getDniDataGrid());
+
+            if (!empActual.getDni().IsNullOrEmpty())
+            {
+                CargarInformes();
+                CargarDocumentos();
+            }
+        }
+
+        private string getNombreDataGrid()
+        {
+            string nombre = "";
+            var column = dataGrid.Columns[0];
+            var cellContent = column.GetCellContent(dataGrid.CurrentCell.Item);
+
+            if (cellContent is TextBlock textNombre)
+            {
+                string valor = textNombre.Text;
+                try
+                {
+                    nombre = valor;
+                }
+                catch (FormatException)
+                {
+                }
+            }
+            return nombre;
+        }
+        private string getDniDataGrid()
+        {
+            string nombre = "";
+            var column = dataGrid.Columns[1];
+            var cellContent = column.GetCellContent(dataGrid.CurrentCell.Item);
+
+            if (cellContent is TextBlock textNombre)
+            {
+                string valor = textNombre.Text;
+                try
+                {
+                    nombre = valor;
+                }
+                catch (FormatException)
+                {
+                }
+            }
+            return nombre;
+        }
+
+        private int getCodigoDataGrid()
+        {
+            int result = 0;
+            var column = dataGrid.Columns[1];
+            var cellContent = column.GetCellContent(dataGrid.CurrentCell.Item);
 
             if (cellContent is TextBlock textBlock)
             {
                 string valor = textBlock.Text;
-                _codSeleccionado = int.Parse(valor);
+                try
+                {
+                    result = int.Parse(valor);
+
+                }
+                catch (FormatException)
+                {
+                }
             }
-            CargarInformes();
+            return result;
         }
 
 
@@ -228,9 +304,10 @@ namespace WPF_CV_RRHH
             }
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void btBorrar_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("¿Estás seguro de que quieres borrar?",
+            if (MessageBox.Show("¿Estás seguro de que quieres borrar a "+empActual.getNombre()+
+                " con DNI "+empActual.getDni()+"?",
                                 "Save file",
                                 MessageBoxButton.YesNo,
                                 MessageBoxImage.Question) == MessageBoxResult.Yes)
@@ -241,8 +318,10 @@ namespace WPF_CV_RRHH
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        MessageBox.Show("Empleado borrado correctamente");
+                        //MessageBox.Show("Empleado borrado correctamente");
                     });
+                    string consultaEmpleado = consultaDataRow();
+                    Cargar(consultaEmpleado);
                 }
 
             }
@@ -263,7 +342,7 @@ namespace WPF_CV_RRHH
             string consulta = "";
 
             //Actualización de strings para cuando se cambie la tabla:
-            consulta = "SELECT * FROM EMPLEADOS";
+            consulta = "SELECT * FROM EMPLEADO";
             if (nombre.Length > 0 && dni.Length > 0)
             {
                 consulta += String.Concat(
@@ -326,8 +405,77 @@ namespace WPF_CV_RRHH
 
         }
 
+        /**
+         * BOTÓN REGISTRAR
+         */
+        private async void btRegistrar_Click(object sender, RoutedEventArgs e)
+        {
+            string nombre = txEntrevistado.Text, dni = txDni.Text;
+            // ¿Campos vacíos?
+            if (nombre.IsNullOrEmpty() && dni.IsNullOrEmpty())
+            {
+                MessageBox.Show("Rellena los campos de arriba. ");
+            }
+            else
+            {
+                //MOSTRAR MENSAJE
+                if (MessageBox.Show("¿Estás seguro de que quieres registrar a " +
+                txEntrevistado.Text + " con DNI " + txDni.Text + "?",
+                    "Save file",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    bool borradoExitoso = await RegistarEmpleadoAsync();
+
+                    if (borradoExitoso)
+                    {
+                        Dispatcher.Invoke(() =>
+                        {
+                            //MessageBox.Show("Empleado registrado correctamente");
+                        });
+                    }
+                    string consultaEmpleado = consultaDataRow();
+                    Cargar(consultaEmpleado);
+
+                }
+            }
+        }
+        
+
         private void listBoxDocumentos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+        }
+
+
+        private void btNuevoInforme_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 win2 = new Window1();
+            win2.Show();
+
+
+        }
+        private void btEditarInforme_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 win2 = new Window1();
+            MainWindow window = new MainWindow();
+            
+            win2.ShowDialog();
+
+
+        }
+        private void btBorrarInforme_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 win2 = new Window1();
+            win2.Show();
+
+
+        }
+
+        private void txEntrevistado_GotFocus(object sender, RoutedEventArgs e)
+        {
+            lbNombre.Content = "Selecciona un entrevistado";
+
 
         }
 
@@ -336,21 +484,34 @@ namespace WPF_CV_RRHH
         private async Task CargarDatosAsyncDataGrid(string consultaEmpleado)
         {
 
-            using (var connection = new SqlConnection(connectionString))
+            try
             {
-                await connection.OpenAsync(); // Método asíncrono
-                using (var command = new SqlCommand(consultaEmpleado, connection))
+                using (var connection = new SqlConnection(connectionString))
                 {
-                    var dataTable = new DataTable();
-                    var adapter = new SqlDataAdapter(command);
-                    adapter.Fill(dataTable);
+                    await connection.OpenAsync();
 
-                    // Asignar datos al DataGrid en el hilo de la UI
-                    Dispatcher.Invoke(() =>
+                    using (var command = new SqlCommand(consultaEmpleado, connection))
                     {
-                        dataGrid.ItemsSource = dataTable.DefaultView;
-                    });
+                        var dataTable = new DataTable();
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            dataTable.Load(reader);
+                        }
+
+                        Dispatcher.Invoke(() =>
+                        {
+                            dataGrid.ItemsSource = dataTable.DefaultView;
+                        });
+                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"Error de SQL: {ex.Message}\nNúmero de error: {ex.Number}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error general: {ex.Message}");
             }
 
         }
@@ -368,8 +529,12 @@ namespace WPF_CV_RRHH
 
                     using (var command = new SqlCommand(consulta, connection))
                     {
+                        //TODO
                         // Parámetro seguro
-                        command.Parameters.AddWithValue("@Codigo", $"%{_codSeleccionado}%");
+                        if (!_codSeleccionado.Equals(null))
+                        {
+                            command.Parameters.AddWithValue("@Codigo", $"%{empActual.getDni()}%");
+                        }
 
                         // Ejecutar consulta
                         using (var reader = await command.ExecuteReaderAsync())
@@ -379,14 +544,13 @@ namespace WPF_CV_RRHH
                             cods_informes_en_listbox.Clear();
                             while (await reader.ReadAsync())
                             {
-
                                 // Mapear manualmente los datos
                                 int codigo = reader.GetInt32(reader.GetOrdinal("CODIGO_INF"));
                                 var informe = new Informe
                                 {
                                     CODIGO_INF = codigo,
                                     FECHA = reader.GetDateTime(reader.GetOrdinal("FECHA")),
-                                    FK_CODIGO_EMP = reader.GetInt32(reader.GetOrdinal("FK_CODIGO_EMP"))
+                                    FK_CODIGO_EMP = reader.GetString(reader.GetOrdinal("FK_CODIGO_EMP"))
                                     
                                 };
                                 cods_informes_en_listbox.Add(num, codigo);
@@ -416,10 +580,12 @@ namespace WPF_CV_RRHH
         }
 
 
-        //CONSULTA INFORMES
+        /**
+         * MUESTRA DOCUMENTOS
+         */
         private async Task CargarDatosAsyncDocumentos()
         {
-            string consulta = "SELECT * FROM CONTENIDOS_EN_EL_CV WHERE CODIGO_INF LIKE " +
+            string consulta = "SELECT * FROM CONTENIDOS_EN_EL_CV WHERE FK_CODIGO_INF LIKE " +
                 "(SELECT CODIGO_INF FROM INFORME_A_FECHA WHERE FK_CODIGO_EMP LIKE @Codigo)";
 
             try
@@ -431,7 +597,7 @@ namespace WPF_CV_RRHH
                     using (var command = new SqlCommand(consulta, connection))
                     {
                         // Parámetro seguro
-                        command.Parameters.AddWithValue("@Codigo", $"%{_informeSeleccionado}%");
+                        command.Parameters.AddWithValue("@Codigo", $"%{empActual.getDni()}%");
 
                         // Ejecutar consulta
                         using (var reader = await command.ExecuteReaderAsync())
@@ -455,7 +621,7 @@ namespace WPF_CV_RRHH
                             Dispatcher.Invoke(() =>
                             {
                                 listBoxDocumentos.ItemsSource = documentos;
-                                listBoxDocumentos.DisplayMemberPath = "DOCUMENTOS"; // Asegúrate de que existe esta propiedad
+                                listBoxDocumentos.DisplayMemberPath = "RutaArchivo"; 
                             });
                         }
                     }
@@ -475,7 +641,43 @@ namespace WPF_CV_RRHH
         //BORRAR EMPLEADO
         public async Task<bool> BorrarEmpleadoAsync(int codigoEmpleado)
         {
-            string consulta = "DELETE FROM EMPLEADOS WHERE CODIGO_EMP = @CodigoEmp";
+            string consulta = "DELETE FROM EMPLEADO WHERE DNI = @CodigoEmp";
+
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand(consulta, connection))
+                    {
+
+                        string dni = getDniDataGrid();
+                        // Parámetro para evitar inyección SQL
+                        command.Parameters.AddWithValue("@CodigoEmp", empActual.getDni());
+
+
+                        int a = command.ExecuteNonQuery();
+                        if (a == 1)
+                        {
+                            //MessageBox.Show("Data add Sucessfully");
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Manejar errores específicos de SQL
+                MessageBox.Show($"Error al borrar el informe: {ex.Message}");
+                return false;
+            }
+        }
+        //BORRAR EMPLEADO
+        public async Task<bool> RegistarEmpleadoAsync()
+        {
+            string consulta = "INSERT INTO EMPLEADO (NOMBRE, DNI) VALUES (@Nombre, @Dni)";
 
             try
             {
@@ -486,20 +688,91 @@ namespace WPF_CV_RRHH
                     using (var command = new SqlCommand(consulta, connection))
                     {
                         // Parámetro para evitar inyección SQL
-                        command.Parameters.AddWithValue("@CodigoEmp", codigoEmpleado);
-
-                        // Ejecutar el comando y obtener filas afectadas
-                        int filasAfectadas = await command.ExecuteNonQueryAsync();
-
-                        // Devolver true si se eliminó al menos una fila
-                        return filasAfectadas > 0;
+                        int a = 0;
+                        command.Parameters.AddWithValue("@Nombre", $"{txEntrevistado.Text}");
+                        command.Parameters.AddWithValue("@Dni", $"{txDni.Text}");
+                        try
+                        {
+                            a = command.ExecuteNonQuery();
+                        }
+                        catch (SqlException ex)
+                        {
+                            if (ex.ErrorCode == -2146232060)
+                            {
+                                MessageBox.Show("El empleado ya existe. Elige otro DNI. ");
+                                return false;
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error al registrar el informe: {ex.Message}, error:  {ex.ErrorCode}");
+                                return false;
+                            }
+                        }
+                        if (a == 1)
+                        {
+                            //MessageBox.Show("Data add Sucessfully");
+                            return true;
+                        }
+                        return false;
                     }
                 }
             }
             catch (SqlException ex)
             {
                 // Manejar errores específicos de SQL
-                MessageBox.Show($"Error al borrar el informe: {ex.Message}");
+                MessageBox.Show($"Error al registrar el informe: {ex.Message}");
+                return false;
+            }
+        }
+        //BORRAR EMPLEADO
+        public async Task<bool> NuevoInformeAsync()
+        {
+            string consulta = "INSERT INTO INFORME_A_FECHA " +
+                "(FECHA, FK_CODIGO_EMP) VALUES (@Fecha, @Foranea)";
+
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand(consulta, connection))
+                    {
+                        // Parámetro para evitar inyección SQL
+                        int a = 0;
+                        //command.Parameters.AddWithValue("@Codigo", $"{txEntrevistado.Text}");
+                        command.Parameters.AddWithValue("@Fecha", $"{txDni.Text}");
+                        command.Parameters.AddWithValue("@Foranea", $"{txDni.Text}");
+                        try
+                        {
+                            a = command.ExecuteNonQuery();
+                        }
+                        catch (SqlException ex)
+                        {
+                            if (ex.ErrorCode == -2146232060)
+                            {
+                                MessageBox.Show("El empleado ya existe. Elige otro DNI. ");
+                                return false;
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error al registrar el informe: {ex.Message}, error:  {ex.ErrorCode}");
+                                return false;
+                            }
+                        }
+                        if (a == 1)
+                        {
+                            //MessageBox.Show("Data add Sucessfully");
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Manejar errores específicos de SQL
+                MessageBox.Show($"Error al registrar el informe: {ex.Message}");
                 return false;
             }
         }

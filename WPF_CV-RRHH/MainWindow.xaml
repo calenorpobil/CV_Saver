@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_CV_RRHH"
         mc:Ignorable="d"
-        Title="MainWindow" Width="550" Height="Auto" Loaded="Window_Loaded"
+        Title="MainWindow" Width="550" Height="645" Loaded="Window_Loaded"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -23,7 +23,8 @@
 
 
         <!-- FILA TITULO -->
-        <StackPanel Grid.Row="0" Orientation="Vertical" Margin="0,0,0,0">
+        <StackPanel Grid.Row="0" Orientation="Vertical" Margin="0,0,0,0"
+                                       HorizontalAlignment="Center">
             <!-- Título grande -->
             <Label Grid.Row="0" 
                    Content="VENTANA DE ENTREVISTAS" 
@@ -52,7 +53,7 @@
                              Text="{Binding NombreEntrevistado, UpdateSourceTrigger=PropertyChanged}" 
                              Width="Auto"
                              Height="25"
-                             Padding="2"/>
+                             Padding="2" GotFocus="txEntrevistado_GotFocus"/>
                 </StackPanel>
 
                 <!-- Campo 2 -->
@@ -63,7 +64,7 @@
                              Text="{Binding Dni, UpdateSourceTrigger=PropertyChanged}" 
                              Width="Auto"
                              Height="25"
-                             Padding="2"/>
+                             Padding="2" />
                 </StackPanel>
 
                 <!-- Campo 3 -->
@@ -95,12 +96,15 @@
                             CurrentCellChanged="dataGrid_CurrentCellChanged"
                             ItemsSource="{Binding Empleados}"
                             SelectedItem="{Binding EmpleadoSeleccionado, Mode=TwoWay}"
-                              MinHeight="100">
+                              VerticalScrollBarVisibility="Visible"
+                              Height="130">
+
                     </DataGrid>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Grid.Column="1" Height="Auto" VerticalAlignment="Center">
-                    <Button Padding="2" Margin="8">➕ Registrar</Button>
-                    <Button Padding="2" Margin="8" Click="Button_Click">🗑 Borrar</Button>
+                    <Label Name="lbNombre" Content="Selecciona un entrevistado"/>
+                    <Button Name="btRegistrar" Padding="2" Margin="8" Click="btRegistrar_Click">➕ Registrar</Button>
+                    <Button Name="btBorrar" Padding="2" Margin="8" Click="btBorrar_Click">🗑 Borrar</Button>
                 </StackPanel>
             </Grid>
         </StackPanel>
@@ -139,10 +143,13 @@
                         <!--BOTONES-->
                         <StackPanel Grid.Column="1" 
                                     Margin="0,8,0,0">
-                            <Button Padding="2" Margin="2">➕</Button>
+                            <Button Padding="2" Margin="2" Name="btNuevoInforme" 
+                                    Click="btNuevoInforme_Click">➕</Button>
 
-                            <Button Padding="2" Margin="2">✏</Button>
-                            <Button Padding="2" Margin="2">🗑</Button>
+                            <Button Padding="2" Margin="2" Name="btEditarInforme" 
+                                    Click="btEditarInforme_Click">✏</Button>
+                            <Button Padding="2" Margin="2" Name="btBorrarInforme" 
+                                    Click="btBorrarInforme_Click">🗑</Button>
 
                         </StackPanel>
                     </Grid>

@@ -10,6 +10,6 @@ namespace WPF_CV_RRHH.Modelos
     {
         public int CODIGO_INF { get; set; }
         public DateTime FECHA { get; set; }
-        public int FK_CODIGO_EMP { get; set; }
+        public required string FK_CODIGO_EMP { get; set; }
     }
 }

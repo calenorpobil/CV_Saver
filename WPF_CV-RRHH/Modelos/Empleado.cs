@@ -9,34 +9,45 @@ namespace WPF_CV_RRHH.Modelos
 {
     public class Empleado
     {
-        public ArrayList informeList { get; set; }
+        public ArrayList empleadoList { get; set; }
 
-        private int CodigoEmp { get; set; }
         private string Nombre { get; set; }
         private string DNI { get; set; }
 
         public Empleado() 
         { 
 
-            CodigoEmp = 0;
             Nombre = "";
             DNI = "";
         }
-        private void AddInforme(Informe i)
+        private void AddEmpleado(Informe i)
         {
-            informeList.Add(i);
+            empleadoList.Add(i);
         }
-        public ArrayList GetInformes()
+        public ArrayList GetEmpleados()
         {
-            return informeList;
+            return empleadoList;
         }
 
-        public Empleado(ArrayList informeList, int codigoEmp, string nombre, string dNI)
+        public Empleado(ArrayList informeList, string nombre, string dNI)
         {
-            this.informeList = informeList;
-            CodigoEmp = codigoEmp;
+            this.empleadoList = informeList;
             Nombre = nombre;
             DNI = dNI;
+        }
+        public Empleado(string nombre, string dNI)
+        {
+            Nombre = nombre;
+            DNI = dNI;
+        }
+
+        public string getNombre()
+        {
+            return Nombre;
+        }
+        public string getDni()
+        {
+            return DNI;
         }
     }
 }
