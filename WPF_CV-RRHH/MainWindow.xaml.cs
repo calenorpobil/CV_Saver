@@ -40,8 +40,11 @@ namespace WPF_CV_RRHH
         private int _codSeleccionado, _informeSeleccionado;
         private Informe InformeMostrar;
         public ObservableCollection<Empleado> Empleados { get; set; }
+        public ObservableCollection<Informe> Informes { get; set; }
+        public ObservableCollection<CONTENIDOS_EN_EL_CV> Documentos { get; set; }
         Dictionary<int, int> cods_informes_en_listbox = new Dictionary<int, int>();
         Empleado empActual;
+        Informe infActual;
 
 
 
@@ -53,7 +56,6 @@ namespace WPF_CV_RRHH
             {
                 _empleadoSeleccionado = value;
                 OnPropertyChanged(nameof(Empleado));
-                // Lógica cuando cambia la selección
             }
         }
         public string NombreEntrevistado
@@ -123,7 +125,8 @@ namespace WPF_CV_RRHH
             _nombreEntrevistado = nombreEntrevistado = "";
             _otro = "DESKTOP-NNKTF0L\\SQLEXPRESS";
             //_otro = "DESKTOP-MDAC0QE\\SQLEXPRESS";
-
+            Documentos = new ObservableCollection<CONTENIDOS_EN_EL_CV>();
+            Informes = new ObservableCollection<Informe>();
 
             //init:
             InitializeComponent();
@@ -159,6 +162,9 @@ namespace WPF_CV_RRHH
 
             var selectedCell = dataGrid.CurrentCell;
             if (!selectedCell.IsValid) return;
+
+            InformeMostrar = null; // Importante
+
             int len = dataGrid.Columns.Count;
             // Obtener el CODIGO de Empleado:
             _codSeleccionado = getCodigoDataGrid();
@@ -169,7 +175,6 @@ namespace WPF_CV_RRHH
             if (!empActual.getDni().IsNullOrEmpty())
             {
                 CargarInformes();
-                CargarDocumentos();
             }
         }
 
@@ -312,7 +317,7 @@ namespace WPF_CV_RRHH
                                 MessageBoxButton.YesNo,
                                 MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                bool borradoExitoso = await BorrarEmpleadoAsync(_codSeleccionado);
+                bool borradoExitoso = await BorrarEmpleadoAsync();
 
                 if (borradoExitoso)
                 {
@@ -365,12 +370,12 @@ namespace WPF_CV_RRHH
         /**
          * INFORME SELECCIONADO, BUSCAR DOCUMENTOS
          */
-        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lbInformes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int seleccionado = listBox.SelectedIndex;
             if (cods_informes_en_listbox.ContainsKey(seleccionado))
             {
-                _informeSeleccionado = cods_informes_en_listbox[seleccionado];
+                InformeMostrar = Informes[seleccionado];
             }
             CargarDocumentos();
 
@@ -450,24 +455,50 @@ namespace WPF_CV_RRHH
 
         private void btNuevoInforme_Click(object sender, RoutedEventArgs e)
         {
-            Window1 win2 = new Window1();
-            win2.Show();
+            Informe nuevo = null;
+            if (empActual!=null && empActual.getNombre()!="")
+            {
+                VentanaNuevoInforme win2 = new VentanaNuevoInforme();
+                win2.Owner=this;
+                win2.lbEmpleadoInforme.Content = "Empleado: "+empActual.getNombre();
 
-
+                if (win2.ShowDialog() == true) // Si el usuario aceptó
+                {
+                    string resultado = win2.Resultado;
+                    MessageBox.Show($"Resultado: {resultado}");
+                    DateTime fecha = DateTime.Parse(resultado);
+                    nuevo = new Informe(fecha, empActual.getDni());
+                    Informes.Add(nuevo);
+                    NuevoInformeAsync(fecha, empActual.getDni());
+                    CargarInformes();
+                }
+            }
         }
         private void btEditarInforme_Click(object sender, RoutedEventArgs e)
         {
-            Window1 win2 = new Window1();
-            MainWindow window = new MainWindow();
-            
-            win2.ShowDialog();
+            Informe nuevo = null;
+            if (empActual != null && empActual.getNombre() != "")
+            {
+                VentanaEditarInforme win2 = new VentanaEditarInforme();
+                win2.Owner = this;
+                win2.lbEmpleadoInforme.Content = "Empleado: " + empActual.getNombre();
+
+                if (win2.ShowDialog() == true) // Si el usuario aceptó
+                {
+                    string resultado = win2.Resultado;
+                    MessageBox.Show($"Resultado: {resultado}");
+                    DateTime fecha = DateTime.Parse(resultado);
+                    nuevo = new Informe(fecha, empActual.getDni());
+                    Informes.Add(nuevo);
+                    NuevoInformeAsync(fecha, empActual.getDni());
+                    CargarInformes();
+                }
+            }
 
 
         }
         private void btBorrarInforme_Click(object sender, RoutedEventArgs e)
         {
-            Window1 win2 = new Window1();
-            win2.Show();
 
 
         }
@@ -511,7 +542,7 @@ namespace WPF_CV_RRHH
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error general: {ex.Message}");
+                MessageBox.Show($"Error cargando los DataGrid: {ex.Message}");
             }
 
         }
@@ -530,6 +561,7 @@ namespace WPF_CV_RRHH
                     using (var command = new SqlCommand(consulta, connection))
                     {
                         //TODO
+
                         // Parámetro seguro
                         if (!_codSeleccionado.Equals(null))
                         {
@@ -539,9 +571,11 @@ namespace WPF_CV_RRHH
                         // Ejecutar consulta
                         using (var reader = await command.ExecuteReaderAsync())
                         {
-                            var informes = new ObservableCollection<Informe>();
+                            Informes = new ObservableCollection<Informe>();
                             int num=0;
                             cods_informes_en_listbox.Clear();
+
+                            Documentos?.Clear(); // Limpiar la colección de documentos
                             while (await reader.ReadAsync())
                             {
                                 // Mapear manualmente los datos
@@ -551,17 +585,16 @@ namespace WPF_CV_RRHH
                                     CODIGO_INF = codigo,
                                     FECHA = reader.GetDateTime(reader.GetOrdinal("FECHA")),
                                     FK_CODIGO_EMP = reader.GetString(reader.GetOrdinal("FK_CODIGO_EMP"))
-                                    
                                 };
                                 cods_informes_en_listbox.Add(num, codigo);
-                                informes.Add(informe);
+                                Informes.Add(informe);
                                 num++;
                             }
 
                             // Actualizar UI
                             Dispatcher.Invoke(() =>
                             {
-                                listBox.ItemsSource = informes;
+                                listBox.ItemsSource = Informes;
                                 listBox.DisplayMemberPath = "FECHA";
                             });
                         }
@@ -574,7 +607,7 @@ namespace WPF_CV_RRHH
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error general: {ex.Message}");
+                MessageBox.Show($"Error cargando los informes: {ex.Message}");
             }
 
         }
@@ -585,8 +618,20 @@ namespace WPF_CV_RRHH
          */
         private async Task CargarDatosAsyncDocumentos()
         {
+            if (InformeMostrar == null) // Si no hay informe seleccionado
+            {
+                Documentos?.Clear();
+                Dispatcher.Invoke(() =>
+                {
+                    listBoxDocumentos.ItemsSource = null;
+                    listBoxDocumentos.Items.Refresh();
+                });
+                return;
+            }
+
+
             string consulta = "SELECT * FROM CONTENIDOS_EN_EL_CV WHERE FK_CODIGO_INF LIKE " +
-                "(SELECT CODIGO_INF FROM INFORME_A_FECHA WHERE FK_CODIGO_EMP LIKE @Codigo)";
+                "@Codigo";
 
             try
             {
@@ -597,12 +642,16 @@ namespace WPF_CV_RRHH
                     using (var command = new SqlCommand(consulta, connection))
                     {
                         // Parámetro seguro
-                        command.Parameters.AddWithValue("@Codigo", $"%{empActual.getDni()}%");
+                        if (InformeMostrar != null)
+                            command.Parameters.AddWithValue("@Codigo", $"%{InformeMostrar.CODIGO_INF}%");
+                        else
+                            command.Parameters.AddWithValue("@Codigo", "");
+
 
                         // Ejecutar consulta
                         using (var reader = await command.ExecuteReaderAsync())
                         {
-                            var documentos = new ObservableCollection<CONTENIDOS_EN_EL_CV>();
+                            Documentos = new ObservableCollection<CONTENIDOS_EN_EL_CV>();
 
                             while (await reader.ReadAsync())
                             {
@@ -614,13 +663,13 @@ namespace WPF_CV_RRHH
                                     TipoMime = reader.GetString(reader.GetOrdinal("TipoMime")),
                                     FK_CODIGO_INF = reader.GetInt32(reader.GetOrdinal("FK_CODIGO_INF"))
                                 };
-                                documentos.Add(documento);
+                                Documentos.Add(documento);
                             }
 
                             // Actualizar UI
                             Dispatcher.Invoke(() =>
                             {
-                                listBoxDocumentos.ItemsSource = documentos;
+                                listBoxDocumentos.ItemsSource = Documentos;
                                 listBoxDocumentos.DisplayMemberPath = "RutaArchivo"; 
                             });
                         }
@@ -633,13 +682,13 @@ namespace WPF_CV_RRHH
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error general: {ex.Message}");
+                MessageBox.Show($"Error cargando los documentos: {ex.Message}");
             }
 
         }
 
         //BORRAR EMPLEADO
-        public async Task<bool> BorrarEmpleadoAsync(int codigoEmpleado)
+        public async Task<bool> BorrarEmpleadoAsync()
         {
             string consulta = "DELETE FROM EMPLEADO WHERE DNI = @CodigoEmp";
 
@@ -724,8 +773,8 @@ namespace WPF_CV_RRHH
                 return false;
             }
         }
-        //BORRAR EMPLEADO
-        public async Task<bool> NuevoInformeAsync()
+        //NUEVO INFORME
+        public async Task<bool> NuevoInformeAsync(DateTime fecha, string foranea)
         {
             string consulta = "INSERT INTO INFORME_A_FECHA " +
                 "(FECHA, FK_CODIGO_EMP) VALUES (@Fecha, @Foranea)";
@@ -741,8 +790,8 @@ namespace WPF_CV_RRHH
                         // Parámetro para evitar inyección SQL
                         int a = 0;
                         //command.Parameters.AddWithValue("@Codigo", $"{txEntrevistado.Text}");
-                        command.Parameters.AddWithValue("@Fecha", $"{txDni.Text}");
-                        command.Parameters.AddWithValue("@Foranea", $"{txDni.Text}");
+                        command.Parameters.AddWithValue("@Fecha", $"{fecha}");
+                        command.Parameters.AddWithValue("@Foranea", $"{foranea}");
                         try
                         {
                             a = command.ExecuteNonQuery();

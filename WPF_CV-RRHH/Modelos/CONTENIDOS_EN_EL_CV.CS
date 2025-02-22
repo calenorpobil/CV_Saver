@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF_CV_RRHH.Modelos
 {
-    class CONTENIDOS_EN_EL_CV
+    public class CONTENIDOS_EN_EL_CV
     {
         public int Id {  get; set; }
         public String RutaArchivo { get; set; }

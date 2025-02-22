@@ -7,7 +7,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Window1.xaml.cs">
+    <Compile Update="VentanaEditarInforme.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="VentanaNuevoInforme.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -15,7 +18,10 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Window1.xaml">
+    <Page Update="VentanaEditarInforme.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="VentanaNuevoInforme.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

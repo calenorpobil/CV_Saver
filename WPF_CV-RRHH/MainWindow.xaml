@@ -137,7 +137,7 @@
                         <StackPanel Grid.Column="0">
                             <ListBox x:Name="listBox" 
                             Width="Auto"
-                            Height="100" Margin="5" SelectionChanged="listBox_SelectionChanged">
+                            Height="100" Margin="5" SelectionChanged="lbInformes_SelectionChanged">
                             </ListBox>
                         </StackPanel>
                         <!--BOTONES-->

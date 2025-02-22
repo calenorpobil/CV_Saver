@@ -11,12 +11,28 @@
       "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\window1.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\window1.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\ventanaeditarinforme.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\ventanaeditarinforme.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\modelos\\contenidos_en_el_cv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\modelos\\contenidos_en_el_cv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\ventananuevoinforme.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\ventananuevoinforme.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\ventananuevoinforme.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\ventananuevoinforme.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\ventanaeditarinforme.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\ventanaeditarinforme.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\obj\\Debug\\net8.0-windows\\VentanaNuevoInforme.g.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WPF_CV-RRHH\\obj\\Debug\\net8.0-windows\\VentanaNuevoInforme.g.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\modelos\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -27,8 +43,11 @@
       "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\modelos\\informe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\modelos\\contenidos_en_el_cv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|solutionrelative:wpf_cv-rrhh\\modelos\\contenidos_en_el_cv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C75A31CB-50C5-4975-AF8E-A65D51D32B33}|WPF_CV-RRHH\\WPF_CV-RRHH.csproj|c:\\users\\carlos\\documents\\merlita\\estudio\\dam2\\desarollo de interfaces\\trabajo\\cv_saver\\wpf_cv-rrhh\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,57 +61,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Window1.xaml",
-              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Window1.xaml",
-              "RelativeDocumentMoniker": "WPF_CV-RRHH\\Window1.xaml",
-              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Window1.xaml",
-              "RelativeToolTip": "WPF_CV-RRHH\\Window1.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-21T20:04:01.573Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "WPF_CV-RRHH\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml.cs",
-              "RelativeToolTip": "WPF_CV-RRHH\\MainWindow.xaml.cs",
-              "ViewState": "AgIAALgBAAAAAAAAAAAIwM0BAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-11T20:03:00.973Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Empleado.cs",
-              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\Empleado.cs",
-              "RelativeDocumentMoniker": "WPF_CV-RRHH\\Modelos\\Empleado.cs",
-              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\Empleado.cs",
-              "RelativeToolTip": "WPF_CV-RRHH\\Modelos\\Empleado.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAwwDEAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-20T19:28:33.361Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "CONTENIDOS_EN_EL_CV.CS",
-              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\CONTENIDOS_EN_EL_CV.CS",
-              "RelativeDocumentMoniker": "WPF_CV-RRHH\\Modelos\\CONTENIDOS_EN_EL_CV.CS",
-              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\CONTENIDOS_EN_EL_CV.CS",
-              "RelativeToolTip": "WPF_CV-RRHH\\Modelos\\CONTENIDOS_EN_EL_CV.CS",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T13:06:25.815Z",
+              "Title": "VentanaNuevoInforme.xaml",
+              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\VentanaNuevoInforme.xaml",
+              "RelativeDocumentMoniker": "WPF_CV-RRHH\\VentanaNuevoInforme.xaml",
+              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\VentanaNuevoInforme.xaml",
+              "RelativeToolTip": "WPF_CV-RRHH\\VentanaNuevoInforme.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-02-22T12:04:39.64Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VentanaEditarInforme.xaml",
+              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\VentanaEditarInforme.xaml",
+              "RelativeDocumentMoniker": "WPF_CV-RRHH\\VentanaEditarInforme.xaml",
+              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\VentanaEditarInforme.xaml",
+              "RelativeToolTip": "WPF_CV-RRHH\\VentanaEditarInforme.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-02-22T12:02:18.146Z",
               "EditorCaption": ""
             },
             {
@@ -109,19 +101,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Informe.cs",
-              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\Informe.cs",
-              "RelativeDocumentMoniker": "WPF_CV-RRHH\\Modelos\\Informe.cs",
-              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\Informe.cs",
-              "RelativeToolTip": "WPF_CV-RRHH\\Modelos\\Informe.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAeAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "WPF_CV-RRHH\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\MainWindow.xaml.cs",
+              "RelativeToolTip": "WPF_CV-RRHH\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAM8BAAAAAAAAAAAtwNwBAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-20T19:49:43.111Z"
+              "WhenOpened": "2025-02-11T20:03:00.973Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "VentanaNuevoInforme.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\VentanaNuevoInforme.xaml.cs",
+              "RelativeDocumentMoniker": "WPF_CV-RRHH\\VentanaNuevoInforme.xaml.cs",
+              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\VentanaNuevoInforme.xaml.cs",
+              "RelativeToolTip": "WPF_CV-RRHH\\VentanaNuevoInforme.xaml.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAgwBsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T12:04:42.465Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "VentanaEditarInforme.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\VentanaEditarInforme.xaml.cs",
+              "RelativeDocumentMoniker": "WPF_CV-RRHH\\VentanaEditarInforme.xaml.cs",
+              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\VentanaEditarInforme.xaml.cs",
+              "RelativeToolTip": "WPF_CV-RRHH\\VentanaEditarInforme.xaml.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAgwBQAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T12:03:36.512Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "VentanaNuevoInforme.g.cs",
+              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\obj\\Debug\\net8.0-windows\\VentanaNuevoInforme.g.cs",
+              "RelativeDocumentMoniker": "WPF_CV-RRHH\\obj\\Debug\\net8.0-windows\\VentanaNuevoInforme.g.cs",
+              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\obj\\Debug\\net8.0-windows\\VentanaNuevoInforme.g.cs",
+              "RelativeToolTip": "WPF_CV-RRHH\\obj\\Debug\\net8.0-windows\\VentanaNuevoInforme.g.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAYwFIAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T12:00:59.348Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\App.xaml",
               "RelativeDocumentMoniker": "WPF_CV-RRHH\\App.xaml",
@@ -133,7 +165,55 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
+              "Title": "CONTENIDOS_EN_EL_CV.CS",
+              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\CONTENIDOS_EN_EL_CV.CS",
+              "RelativeDocumentMoniker": "WPF_CV-RRHH\\Modelos\\CONTENIDOS_EN_EL_CV.CS",
+              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\CONTENIDOS_EN_EL_CV.CS",
+              "RelativeToolTip": "WPF_CV-RRHH\\Modelos\\CONTENIDOS_EN_EL_CV.CS",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T13:06:25.815Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Informe.cs",
+              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\Informe.cs",
+              "RelativeDocumentMoniker": "WPF_CV-RRHH\\Modelos\\Informe.cs",
+              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\Informe.cs",
+              "RelativeToolTip": "WPF_CV-RRHH\\Modelos\\Informe.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAArwBQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T19:49:43.111Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Empleado.cs",
+              "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\Empleado.cs",
+              "RelativeDocumentMoniker": "WPF_CV-RRHH\\Modelos\\Empleado.cs",
+              "ToolTip": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\Modelos\\Empleado.cs",
+              "RelativeToolTip": "WPF_CV-RRHH\\Modelos\\Empleado.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T19:28:33.361Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Microsoft.Common.CurrentVersion.targets",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ViewState": "AgIAALYUAAAAAAAAAAAawMUUAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-02-22T09:48:12.983Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "AssemblyInfo.cs",
               "DocumentMoniker": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\AssemblyInfo.cs",
               "RelativeDocumentMoniker": "WPF_CV-RRHH\\AssemblyInfo.cs",
