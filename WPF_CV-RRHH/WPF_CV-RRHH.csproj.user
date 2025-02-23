@@ -10,6 +10,9 @@
     <Compile Update="VentanaEditarInforme.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="VentanaNuevoConcepto.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="VentanaNuevoInforme.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -19,6 +22,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="VentanaEditarInforme.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="VentanaNuevoConcepto.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="VentanaNuevoInforme.xaml">

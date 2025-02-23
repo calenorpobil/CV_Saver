@@ -159,7 +159,7 @@
 
                     <Label x:Name="txDocumentos" 
                                 KeyDown="TextBox_KeyDown"
-                                Content="Documentos del empleado" 
+                                Content="Documentos del informe (seleccionar para ver)" 
                                 Width="Auto"
                                 Height="25"
                                 Padding="2"/>
@@ -180,8 +180,8 @@
                         <StackPanel Grid.Column="1"
                                     Margin="0,8,0,0">
                             <Button Padding="2" Margin="2" Click="btNuevoDocumento_click">➕</Button>
-                            <Button Padding="2" Margin="2">✏</Button>
-                            <Button Padding="2" Margin="2">🗑</Button>
+                            <Button Padding="2" Margin="2" Click="btEditarDocumento_click">✏</Button>
+                            <Button Padding="2" Margin="2" Click="btBorrarDocumento_click">🗑</Button>
                         </StackPanel>
                     </Grid>
                 </StackPanel>
@@ -196,7 +196,7 @@
 
             <Label x:Name="txContenidos" 
                             KeyDown="TextBox_KeyDown"
-                            Content="Informes del empleado" 
+                            Content="Conceptos del informe (seleccionar para ver)" 
                             Width="Auto"
                             Height="25"
                             Padding="2"/>
@@ -214,7 +214,8 @@
                         </Grid.ColumnDefinitions>
                         <!--CONTENIDOS-->
                         <StackPanel Grid.Column="0">
-                            <ListBox x:Name="lbContenidos" 
+                            <ListBox x:Name="lbConceptox" 
+                            Foreground="Black" Background="White"
                             Width="Auto"
                             Height="100" Margin="5">
                             </ListBox>
@@ -222,7 +223,7 @@
                         <!--BOTONES-->
                         <StackPanel Grid.Column="1" Height="{Binding ActualHeight, ElementName=lbContenidos}"
                                     Margin="0,8,0,0">
-                            <Button Padding="2" Margin="2">➕</Button>
+                            <Button Name="btNuevoConcepto" Padding="2" Margin="2" Click="btNuevoConcepto_click">➕</Button>
 
                             <Button Padding="2" Margin="2">✏</Button>
                             <Button Padding="2" Margin="2">🗑</Button>

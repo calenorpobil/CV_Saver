@@ -1,0 +1,41 @@
+﻿<Window x:Class="WPF_CV_RRHH.VentanaEditarInforme"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_CV_RRHH"
+        mc:Ignorable="d"
+        Title="VentanaEditarInforme" Height="271" Width="330">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+            <!-- Título grande -->
+            <Label
+           Content="MOFIDICAR INFORME" 
+           FontSize="18" 
+           FontWeight="Bold"
+           HorizontalAlignment="Center"
+           Margin="0,0,0,8"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <Label Content="Fecha" />
+            <DatePicker Name="dpFecha" Width="120"></DatePicker>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Vertical">
+            <Label Content="Empleado: " Name="lbEmpleadoInforme"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="btGuardar" Content="Guardar" Margin="8"
+                Click="Aceptar_Click"/>
+            <Button Name="btCancelar" Content="Cancelar" Margin="8"
+                Click="Cancelar_Click"/>
+        </StackPanel>
+
+    </Grid>
+</Window>
