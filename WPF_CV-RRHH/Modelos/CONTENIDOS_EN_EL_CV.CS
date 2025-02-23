@@ -8,10 +8,17 @@ namespace WPF_CV_RRHH.Modelos
 {
     public class CONTENIDOS_EN_EL_CV
     {
-        public int Id {  get; set; }
         public String RutaArchivo { get; set; }
         public String TipoMime {  get; set; }
-        public int FK_CODIGO_INF { get; set; }
+        public DateTime FK_CODIGO_INF { get; set; }
+
+        public CONTENIDOS_EN_EL_CV() { }
+        public CONTENIDOS_EN_EL_CV(string ruta, string tipo, DateTime informe)
+        {
+            RutaArchivo = ruta;
+            TipoMime = tipo;
+            FK_CODIGO_INF = informe;
+        }
 
     }
 }

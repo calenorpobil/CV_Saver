@@ -179,7 +179,7 @@
                         <!--BOTONES-->
                         <StackPanel Grid.Column="1"
                                     Margin="0,8,0,0">
-                            <Button Padding="2" Margin="2">➕</Button>
+                            <Button Padding="2" Margin="2" Click="btNuevoDocumento_click">➕</Button>
                             <Button Padding="2" Margin="2">✏</Button>
                             <Button Padding="2" Margin="2">🗑</Button>
                         </StackPanel>

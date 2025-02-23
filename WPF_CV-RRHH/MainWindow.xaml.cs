@@ -271,7 +271,7 @@ namespace WPF_CV_RRHH
                 MessageBox.Show(ex.Message);
             }
         }
-        //CARGAR EL DOCUMENTOS
+        //CARGAR DOCUMENTOS
         private async void CargarDocumentos()
         {
 
@@ -373,10 +373,8 @@ namespace WPF_CV_RRHH
         private void lbInformes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int seleccionado = listBox.SelectedIndex;
-            if (cods_informes_en_listbox.ContainsKey(seleccionado))
-            {
+            if (listBox != null) 
                 InformeMostrar = Informes[seleccionado];
-            }
             CargarDocumentos();
 
             /*
@@ -468,29 +466,29 @@ namespace WPF_CV_RRHH
                     MessageBox.Show($"Resultado: {resultado}");
                     DateTime fecha = DateTime.Parse(resultado);
                     nuevo = new Informe(fecha, empActual.getDni());
-                    Informes.Add(nuevo);
                     NuevoInformeAsync(fecha, empActual.getDni());
+                    Informes.Add(nuevo);
                     CargarInformes();
                 }
             }
         }
         private void btEditarInforme_Click(object sender, RoutedEventArgs e)
         {
-            Informe nuevo = null;
-            if (empActual != null && empActual.getNombre() != "")
+            Informe nuevo = InformeMostrar;
+            if (nuevo!=null && empActual != null && empActual.getNombre() != "")
             {
                 VentanaEditarInforme win2 = new VentanaEditarInforme();
                 win2.Owner = this;
                 win2.lbEmpleadoInforme.Content = "Empleado: " + empActual.getNombre();
+                win2.dpFecha.SelectedDate = InformeMostrar.FECHA;
 
                 if (win2.ShowDialog() == true) // Si el usuario aceptó
                 {
                     string resultado = win2.Resultado;
-                    MessageBox.Show($"Resultado: {resultado}");
                     DateTime fecha = DateTime.Parse(resultado);
                     nuevo = new Informe(fecha, empActual.getDni());
                     Informes.Add(nuevo);
-                    NuevoInformeAsync(fecha, empActual.getDni());
+                    _ = EditarInformeAsync(fecha, empActual.getDni());
                     CargarInformes();
                 }
             }
@@ -508,6 +506,29 @@ namespace WPF_CV_RRHH
             lbNombre.Content = "Selecciona un entrevistado";
 
 
+        }
+
+        private void btNuevoDocumento_click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            // Set filter for file extension and default file extension 
+            dlg.DefaultExt = ".png";
+            dlg.Filter = "";
+
+            // Display OpenFileDialog by calling ShowDialog method 
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+                string tipo = dlg.GetType().Name;
+                CONTENIDOS_EN_EL_CV nuevoDoc = new CONTENIDOS_EN_EL_CV(filename, tipo, InformeMostrar.getFechaInf());
+                _ = NuevoDocumentoAsync(nuevoDoc);
+                CargarDocumentos();
+            }
         }
 
 
@@ -572,21 +593,18 @@ namespace WPF_CV_RRHH
                         using (var reader = await command.ExecuteReaderAsync())
                         {
                             Informes = new ObservableCollection<Informe>();
-                            int num=0;
+                            int num = 0;
                             cods_informes_en_listbox.Clear();
 
                             Documentos?.Clear(); // Limpiar la colección de documentos
                             while (await reader.ReadAsync())
                             {
                                 // Mapear manualmente los datos
-                                int codigo = reader.GetInt32(reader.GetOrdinal("CODIGO_INF"));
                                 var informe = new Informe
                                 {
-                                    CODIGO_INF = codigo,
                                     FECHA = reader.GetDateTime(reader.GetOrdinal("FECHA")),
                                     FK_CODIGO_EMP = reader.GetString(reader.GetOrdinal("FK_CODIGO_EMP"))
                                 };
-                                cods_informes_en_listbox.Add(num, codigo);
                                 Informes.Add(informe);
                                 num++;
                             }
@@ -628,10 +646,8 @@ namespace WPF_CV_RRHH
                 });
                 return;
             }
-
-
-            string consulta = "SELECT * FROM CONTENIDOS_EN_EL_CV WHERE FK_CODIGO_INF LIKE " +
-                "@Codigo";
+            string consulta = "SELECT * FROM CONTENIDOS_EN_EL_CV WHERE FK_CODIGO_INF = '"+
+                InformeMostrar.getFechaInf().ToString()+"'";
 
             try
             {
@@ -643,7 +659,10 @@ namespace WPF_CV_RRHH
                     {
                         // Parámetro seguro
                         if (InformeMostrar != null)
-                            command.Parameters.AddWithValue("@Codigo", $"%{InformeMostrar.CODIGO_INF}%");
+                        {
+                            //command.Parameters.AddWithValue("@Codigo", $"{InformeMostrar.getFechaInf().ToString()}");
+                            //MessageBox.Show(InformeMostrar.getFechaInf().ToString());
+                        }
                         else
                             command.Parameters.AddWithValue("@Codigo", "");
 
@@ -658,10 +677,9 @@ namespace WPF_CV_RRHH
                                 // Mapear manualmente los datos
                                 var documento = new CONTENIDOS_EN_EL_CV
                                 {
-                                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                     RutaArchivo = reader.GetString(reader.GetOrdinal("RutaArchivo")),
                                     TipoMime = reader.GetString(reader.GetOrdinal("TipoMime")),
-                                    FK_CODIGO_INF = reader.GetInt32(reader.GetOrdinal("FK_CODIGO_INF"))
+                                    FK_CODIGO_INF = reader.GetDateTime(reader.GetOrdinal("FK_CODIGO_INF"))
                                 };
                                 Documentos.Add(documento);
                             }
@@ -812,6 +830,107 @@ namespace WPF_CV_RRHH
                         if (a == 1)
                         {
                             //MessageBox.Show("Data add Sucessfully");
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Manejar errores específicos de SQL
+                MessageBox.Show($"Error al registrar el informe: {ex.Message}");
+                return false;
+            }
+        }
+        //EDITAR INFORME
+        public async Task<bool> EditarInformeAsync(DateTime fecha, string foranea)
+        {
+            string consulta = "UPDATE INFORME_A_FECHA " +
+                "SET FECHA = @Fecha WHERE FK_CODIGO_EMP = @ForaneaEmp and FECHA = @id";
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand(consulta, connection))
+                    {
+                        // Parámetro para evitar inyección SQL
+                        int a = 0;
+                        command.Parameters.AddWithValue("@Fecha", $"{fecha}");
+                        command.Parameters.AddWithValue("@ForaneaEmp", $"{empActual.getDni()}");
+                        try
+                        {
+                            a = command.ExecuteNonQuery();
+                        }
+                        catch (SqlException ex)
+                        {
+                            if (ex.ErrorCode == -2146232060)
+                            {
+                                MessageBox.Show("El informe ya existe. ");
+                                return false;
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error al registrar el informe: {ex.Message}. Código:  {ex.ErrorCode}");
+                                return false;
+                            }
+                        }
+                        if (a == 1)
+                        {
+                            //MessageBox.Show("Data add Sucessfully");
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Manejar errores específicos de SQL
+                MessageBox.Show($"Error al registrar el informe: {ex.Message}");
+                return false;
+            }
+        }
+        //NUEVO DOCUMENTO
+        public async Task<bool> NuevoDocumentoAsync(CONTENIDOS_EN_EL_CV doc)
+        {
+            string consulta = "INSERT INTO CONTENIDOS_EN_EL_CV " +
+                "(RutaArchivo, TipoMime, FK_CODIGO_INF) VALUES (@Ruta, @Tipo, @Informe)";
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand(consulta, connection))
+                    {
+                        // Parámetro para evitar inyección SQL
+                        int a = 0;
+                        command.Parameters.AddWithValue("@Ruta", $"{doc.RutaArchivo}");
+                        command.Parameters.AddWithValue("@Tipo", $"{doc.TipoMime}");
+                        command.Parameters.AddWithValue("@Informe", $"{doc.FK_CODIGO_INF}");
+                        try
+                        {
+                            a = command.ExecuteNonQuery();
+                        }
+                        catch (SqlException ex)
+                        {
+                            if (ex.ErrorCode == -2146232060)
+                            {
+                                MessageBox.Show("Ya existe otro documento igual. ");
+                                return false;
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error al registrar el informe: {ex.Message}, error:  {ex.ErrorCode}");
+                                return false;
+                            }
+                        }
+                        if (a == 1)
+                        {
+                            MessageBox.Show("Data add Sucessfully");
                             return true;
                         }
                         return false;
