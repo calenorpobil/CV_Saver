@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\WPF_CV-RRHH.csproj": {}
+    "D:\\Carlos\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\WPF_CV-RRHH.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\WPF_CV-RRHH.csproj": {
+    "D:\\Carlos\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\WPF_CV-RRHH.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\WPF_CV-RRHH.csproj",
+        "projectUniqueName": "D:\\Carlos\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\WPF_CV-RRHH.csproj",
         "projectName": "WPF_CV-RRHH",
-        "projectPath": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\WPF_CV-RRHH.csproj",
-        "packagesPath": "C:\\Users\\Carlos\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Carlos\\Documents\\Merlita\\Estudio\\DAM2\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\obj\\",
+        "projectPath": "D:\\Carlos\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\WPF_CV-RRHH.csproj",
+        "packagesPath": "C:\\Users\\Alumno\\.nuget\\packages\\",
+        "outputPath": "D:\\Carlos\\Desarollo de interfaces\\TRABAJO\\CV_Saver\\WPF_CV-RRHH\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Carlos\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Alumno\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

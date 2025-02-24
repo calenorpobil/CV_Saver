@@ -280,3 +280,11 @@ C:\Users\Carlos\Documents\Merlita\Estudio\DAM2\Desarollo de interfaces\TRABAJO\C
 C:\Users\Carlos\Documents\Merlita\Estudio\DAM2\Desarollo de interfaces\TRABAJO\CV_Saver\WPF_CV-RRHH\obj\Debug\net8.0-windows\ref\WPF_CV-RRHH.dll
 C:\Users\Carlos\Documents\Merlita\Estudio\DAM2\Desarollo de interfaces\TRABAJO\CV_Saver\WPF_CV-RRHH\obj\Debug\net8.0-windows\VentanaNuevoConcepto.g.cs
 C:\Users\Carlos\Documents\Merlita\Estudio\DAM2\Desarollo de interfaces\TRABAJO\CV_Saver\WPF_CV-RRHH\obj\Debug\net8.0-windows\VentanaNuevoConcepto.baml
+D:\Carlos\Desarollo de interfaces\TRABAJO\CV_Saver\WPF_CV-RRHH\obj\Debug\net8.0-windows\VentanaEditarInforme.g.cs
+D:\Carlos\Desarollo de interfaces\TRABAJO\CV_Saver\WPF_CV-RRHH\obj\Debug\net8.0-windows\VentanaNuevoConcepto.g.cs
+D:\Carlos\Desarollo de interfaces\TRABAJO\CV_Saver\WPF_CV-RRHH\obj\Debug\net8.0-windows\VentanaNuevoInforme.g.cs
+D:\Carlos\Desarollo de interfaces\TRABAJO\CV_Saver\WPF_CV-RRHH\obj\Debug\net8.0-windows\VentanaEditarInforme.baml
+D:\Carlos\Desarollo de interfaces\TRABAJO\CV_Saver\WPF_CV-RRHH\obj\Debug\net8.0-windows\VentanaNuevoConcepto.baml
+D:\Carlos\Desarollo de interfaces\TRABAJO\CV_Saver\WPF_CV-RRHH\obj\Debug\net8.0-windows\VentanaNuevoInforme.baml
+D:\Carlos\Desarollo de interfaces\TRABAJO\CV_Saver\WPF_CV-RRHH\obj\Debug\net8.0-windows\VentanaEditarConcepto.g.cs
+D:\Carlos\Desarollo de interfaces\TRABAJO\CV_Saver\WPF_CV-RRHH\obj\Debug\net8.0-windows\VentanaEditarConcepto.baml

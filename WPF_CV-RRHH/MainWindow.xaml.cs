@@ -47,6 +47,7 @@ namespace WPF_CV_RRHH
         Empleado empActual;
         Informe infActual;
         Documento docActual;
+        Concepto conceptoActual;
 
 
 
@@ -125,8 +126,8 @@ namespace WPF_CV_RRHH
             //Inicialización de los valores por Defecto para las consultas:
             _dni = "";
             _nombreEntrevistado = nombreEntrevistado = "";
-            _otro = "DESKTOP-NNKTF0L\\SQLEXPRESS";
-            //_otro = "DESKTOP-MDAC0QE\\SQLEXPRESS";
+            //_otro = "DESKTOP-NNKTF0L\\SQLEXPRESS";
+            _otro = "DESKTOP-MDAC0QE\\SQLEXPRESS";
             Empleados = new ObservableCollection<Empleado>();
             Documentos = new ObservableCollection<Documento>();
             Informes = new ObservableCollection<Informe>();
@@ -175,6 +176,7 @@ namespace WPF_CV_RRHH
 
 
             InformeMostrar = null; // Importante
+            //docActual = null;
 
             int len = dataGrid.Columns.Count;
             // Obtener el CODIGO de Empleado:
@@ -188,6 +190,7 @@ namespace WPF_CV_RRHH
                 CargarInformes();
                 CargarDocumentos();
                 CargarConceptos();
+                tbDescripcionConcepto.Text = "";
             }
         }
 
@@ -413,40 +416,34 @@ namespace WPF_CV_RRHH
                 InformeMostrar = Informes[seleccionado];
                 CargarDocumentos();
                 CargarConceptos();
+                txContenido.Content = "Selecciona un concepto";
+                tbDescripcionConcepto.Text = "";
             }
             else
             {
                 InformeMostrar = null; // Limpiar si el índice no es válido
             }
 
-            /*
-            var selectedCell = listBox.SelectedItem;
-            if (selectedCell != null) return;
-            // Obtener los Documentos del informe
-            using (var connect = new SqlConnection(connectionString))
+        }
+
+        /**
+         * SELECCIONAR CONCEPTO
+         */
+        private void listBoxConceptos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int seleccionado = lbConceptox.SelectedIndex;
+
+
+            if (seleccionado >= 0 && seleccionado < Conceptos.Count)
             {
-                connect.Open();
-
-                string readString = "SELECT * FROM CONTENIDOS_EN_EL_CV WHERE FK_CODIGO_INF LIKE @Codigo";
-                SqlCommand readCommand = new SqlCommand(readString, connect);
-
-                using (SqlDataReader dataRead = readCommand.ExecuteReader())
-                {
-                    if (dataRead != null)
-                    {
-                        while (dataRead.Read())
-                        {
-
-
-
-                        
-                        }
-                    }
-                }
-
-                connect.Close();
-            }*/
-
+                conceptoActual = Conceptos[seleccionado];
+                txContenido.Content= conceptoActual.getNombre();
+                tbDescripcionConcepto.Text = conceptoActual.Descripcion;
+            }
+            else
+            {
+                conceptoActual = null; // Limpiar si el índice no es válido
+            }
 
         }
 
@@ -522,6 +519,7 @@ namespace WPF_CV_RRHH
                     NuevoInformeAsync(fecha, empActual.getDni());
                     Informes.Add(nuevo);
                     CargarInformes();
+                    CargarDocumentos();
                 }
             }
         }
@@ -852,6 +850,7 @@ namespace WPF_CV_RRHH
                                     FK_CODIGO_INF = reader.GetDateTime(reader.GetOrdinal("FK_CODIGO_INF"))
                                 };
                                 Documentos.Add(documento);
+                                docActual = Documentos[0];
                             }
 
                             // Actualizar UI
@@ -881,11 +880,11 @@ namespace WPF_CV_RRHH
         {
             if (InformeMostrar == null) // Si no hay informe seleccionado
             {
-                Documentos?.Clear();
+                Conceptos?.Clear();
                 Dispatcher.Invoke(() =>
                 {
-                    listBoxDocumentos.ItemsSource = null;
-                    listBoxDocumentos.Items.Refresh();
+                    lbConceptox.ItemsSource = null;
+                    lbConceptox.Items.Refresh();
                 });
                 return;
             }
@@ -911,7 +910,7 @@ namespace WPF_CV_RRHH
                         // Ejecutar consulta
                         using (var reader = await command.ExecuteReaderAsync())
                         {
-                            Conceptos.Clear();
+                            Conceptos = new ObservableCollection<Concepto>();
 
                             while (await reader.ReadAsync())
                             {
@@ -992,15 +991,66 @@ namespace WPF_CV_RRHH
 
             if (v.ShowDialog() == true) // Si el usuario aceptó
             {
+
                 string resultado = v.Resultado;
-                nuevo = new Concepto(resultado, empActual.getDni(), infActual.getFechaInf());
+                nuevo = new Concepto(resultado, "", InformeMostrar.getFechaInf());
                 _ = NuevoConceptoAsync(nuevo);
                 Conceptos.Add(nuevo);
                 CargarConceptos();
+                
             }
 
 
         }
+        private void btEditarConcepto_click(object sender, RoutedEventArgs e)
+        {
+            VentanaEditarConcepto v = new VentanaEditarConcepto();
+            v.Owner = this;
+
+            v.txConcepto.Text = conceptoActual.getNombre();
+            string nombreViejo = conceptoActual.getNombre();
+            string desc = conceptoActual.getDescripcion();
+            Concepto nuevo;
+
+            if (v.ShowDialog() == true) // Si el usuario aceptó
+            {
+
+                string resultado = v.Resultado;
+                Conceptos.Remove(conceptoActual);
+                nuevo = new Concepto(resultado, desc, InformeMostrar.getFechaInf());
+                _ = EditarConceptoAsync(nuevo, nombreViejo);
+                Conceptos.Add(nuevo);
+                CargarConceptos();
+                tbDescripcionConcepto.Text = "";
+            }
+
+
+        }
+
+        private async void btBorrarConcepto_click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("¿Estás seguro de que quieres borrar el concepto "+conceptoActual.getNombre()+ 
+                " de  "+ empActual.getNombre() +"?",
+                                "Save file",
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                bool borradoExitoso = await BorrarConceptoAsync(conceptoActual);
+
+                if (borradoExitoso)
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        //MessageBox.Show("Empleado borrado correctamente");
+                    });
+                    CargarConceptos();
+
+                }
+
+            }
+
+        }
+
 
         //BORRAR EMPLEADO
         public async Task<bool> RegistarEmpleadoAsync()
@@ -1316,6 +1366,7 @@ namespace WPF_CV_RRHH
                         try
                         {
                             a = command.ExecuteNonQuery();
+                            
                         }
                         catch (SqlException ex)
                         {
@@ -1346,6 +1397,118 @@ namespace WPF_CV_RRHH
                 return false;
             }
         }
+
+        //EDITAR CONCEPTO
+        public async Task<bool> EditarConceptoAsync(Concepto doc, string nombreViejo)
+        {
+            string consulta = "UPDATE CONCEPTOS_PARA_CV " +
+                "SET Nombre = @Nombre, DESCRIPCION = @Desc WHERE (FK_CODIGO_INF = @ForaneaInf and Nombre = @NombreViejo)";
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand(consulta, connection))
+                    {
+                        // Parámetro para evitar inyección SQL
+                        int a = 0;
+                        command.Parameters.AddWithValue("@Nombre", $"{doc.Nombre}");
+                        command.Parameters.AddWithValue("@Desc", $"{doc.Descripcion}");
+                        command.Parameters.AddWithValue("@ForaneaInf", $"{doc.FK_CODIGO_INF}");
+                        command.Parameters.AddWithValue("@NombreViejo", $"{nombreViejo}");
+                        try
+                        {
+                            a = command.ExecuteNonQuery();
+                        }
+                        catch (SqlException ex)
+                        {
+                            if (ex.ErrorCode == -2146232060)
+                            {
+                                MessageBox.Show("Ya existe otro concepto igual. ");
+                                return false;
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error al editar el concepto: {ex.Message}, error:  {ex.ErrorCode}");
+                                return false;
+                            }
+                        }
+                        if (a == 1)
+                        {
+                            //MessageBox.Show("Data add Sucessfully");
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Manejar errores específicos de SQL
+                MessageBox.Show($"Error al registrar el informe: {ex.Message}");
+                return false;
+            }
+        }
+
+        //BORRAR CONCEPTO
+        private async Task<bool> BorrarConceptoAsync(Concepto doc)
+        {
+            string consulta = "DELETE FROM CONCEPTOS_PARA_CV " +
+                            "WHERE (FK_CODIGO_INF = @ForaneaInf and Nombre = @id)";
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var command = new SqlCommand(consulta, connection))
+                    {
+                        // Parámetro para evitar inyección SQL
+                        int a = 0;
+                        command.Parameters.AddWithValue("@ForaneaInf", $"{InformeMostrar.getFechaInf()}");
+                        command.Parameters.AddWithValue("@id", $"{doc.Nombre}");
+                        try
+                        {
+                            a = command.ExecuteNonQuery();
+                        }
+                        catch (SqlException ex)
+                        {
+                            MessageBox.Show($"Error al borrar el concepto: {ex.Message}. Código:  {ex.ErrorCode}");
+                            return false;
+                        }
+                        if (a == 1)
+                        {
+                            //MessageBox.Show("Data add Sucessfully");
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Manejar errores específicos de SQL
+                MessageBox.Show($"Error al borrar el informe: {ex.Message}");
+                return false;
+            }
+        }
+
+
+
+        private void tbDescripcionGuardar(object sender, RoutedEventArgs e)
+        {
+            if(lbConceptox.SelectedItems.Count != 0)
+            {
+                Concepto nuevaDesc = new Concepto(conceptoActual.getNombre(), tbDescripcionConcepto.Text, conceptoActual.getCodigo());
+                Conceptos.Remove(conceptoActual);
+                Conceptos.Add(nuevaDesc);
+                _ = EditarConceptoAsync(nuevaDesc, nuevaDesc.getNombre());
+            }
+
+
+        }
+
 
         private void escribirInforme(Informe informe)
         {

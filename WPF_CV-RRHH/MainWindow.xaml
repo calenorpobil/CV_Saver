@@ -217,7 +217,7 @@
                             <ListBox x:Name="lbConceptox" 
                             Foreground="Black" Background="White"
                             Width="Auto"
-                            Height="100" Margin="5">
+                            Height="100" Margin="5" SelectionChanged="listBoxConceptos_SelectionChanged">
                             </ListBox>
                         </StackPanel>
                         <!--BOTONES-->
@@ -225,8 +225,8 @@
                                     Margin="0,8,0,0">
                             <Button Name="btNuevoConcepto" Padding="2" Margin="2" Click="btNuevoConcepto_click">➕</Button>
 
-                            <Button Padding="2" Margin="2">✏</Button>
-                            <Button Padding="2" Margin="2">🗑</Button>
+                            <Button Padding="2" Margin="2" Click="btEditarConcepto_click">✏</Button>
+                            <Button Padding="2" Margin="2" Click="btBorrarConcepto_click">🗑</Button>
 
                         </StackPanel>
                     </Grid>
@@ -243,20 +243,22 @@
                         <DockPanel Grid.Row="0" Height="Auto" Margin="0,0,20,0">
                             <Label x:Name="txContenido" 
                             KeyDown="TextBox_KeyDown"
-                            Content="Selecciona un contenido"
+                            Content="Selecciona un concepto"
                             Width="Auto"
                             Height="25"
                             Padding="2"/>
                         </DockPanel>
                         <DockPanel Grid.Row="1" Height="Auto">
                             <TextBox VerticalAlignment="Stretch"   
+                                     Name="tbDescripcionConcepto"
                                      Height="50"
                                      TextWrapping="Wrap"
                                      AcceptsReturn="True"
-                                     VerticalScrollBarVisibility="Auto"/>
+                                     VerticalScrollBarVisibility="Auto"
+                                     Margin="4"/>
                         </DockPanel>
                         <DockPanel Grid.Row="2" VerticalAlignment="Bottom">
-                            <Button Padding="2" Margin="8"  VerticalAlignment="Bottom">✔ Confirmar</Button>
+                            <Button Padding="2" Margin="8"  VerticalAlignment="Bottom" Click="tbDescripcionGuardar">✔ Guardar texto</Button>
                         </DockPanel>
                     </Grid>
 

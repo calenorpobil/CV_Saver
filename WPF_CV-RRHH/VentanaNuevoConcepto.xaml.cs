@@ -23,6 +23,7 @@ namespace WPF_CV_RRHH
         {
             Resultado = "";
             InitializeComponent();
+            txConcepto.Focus();
         }
 
         public string Resultado { get; private set; }
