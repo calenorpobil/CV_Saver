@@ -1,0 +1,39 @@
+﻿<Window x:Class="WPF_CV_RRHH.VentanaEditarConcepto"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_CV_RRHH"
+        mc:Ignorable="d"
+        Title="VentanaEditarConcepto" Height="180" Width="266">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+            <!-- Título grande -->
+            <Label
+           Content="EDITAR CONCEPTO" 
+           FontSize="18" 
+           FontWeight="Bold"
+           Margin="0,0,0,8"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <Label Content="Título del concepto:" />
+            <TextBox x:Name="txConcepto" 
+                             Width="Auto"
+                             Height="25"
+                     Margin="8"
+                             Padding="2"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="btGuardar" Content="Guardar" Margin="8"
+                Click="Aceptar_Click"/>
+            <Button Name="btCancelar" Content="Cancelar" Margin="8"
+                Click="Cancelar_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
