@@ -126,8 +126,8 @@ namespace WPF_CV_RRHH
             //Inicialización de los valores por Defecto para las consultas:
             _dni = "";
             _nombreEntrevistado = nombreEntrevistado = "";
-            //_otro = "DESKTOP-NNKTF0L\\SQLEXPRESS";
-            _otro = "DESKTOP-MDAC0QE\\SQLEXPRESS";
+            _otro = "DESKTOP-NNKTF0L\\SQLEXPRESS";
+            //_otro = "DESKTOP-MDAC0QE\\SQLEXPRESS";
             Empleados = new ObservableCollection<Empleado>();
             Documentos = new ObservableCollection<Documento>();
             Informes = new ObservableCollection<Informe>();
