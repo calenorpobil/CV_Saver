@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_CV_RRHH"
         mc:Ignorable="d"
-        Title="MainWindow" Width="550" Height="645" Loaded="Window_Loaded"
+        Title="MainWindow" Width="550" Height="700" Loaded="Window_Loaded"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -24,14 +24,16 @@
 
         <!-- FILA TITULO -->
         <StackPanel Grid.Row="0" Orientation="Vertical" Margin="0,0,0,0"
-                                       HorizontalAlignment="Center">
+                    HorizontalAlignment="Center">
             <!-- Título grande -->
             <Label Grid.Row="0" 
-                   Content="VENTANA DE ENTREVISTAS" 
+                   Content="CVs PARA RECURSOS HUMANOS
+" 
                    FontSize="24" 
-                   FontWeight="Bold"
                    HorizontalAlignment="Center"
+                   FontWeight="Bold"
                    Margin="0,0,0,8"/>
+            <Label Content="🔎 Escribe en los siguientes campos para buscar, registrar: "></Label>
         </StackPanel>
 
         <!-- FILA CAMPOS -->
@@ -47,7 +49,7 @@
                 </Grid.ColumnDefinitions>
                 <!-- Campo 1 -->
                 <StackPanel Orientation="Vertical" Grid.Column="0" Height="Auto" Margin="0,0,20,0">
-                    <Label Content="Nombre del entrevistado:" RenderTransformOrigin="0.5,0.5"/>
+                    <Label Content="Nombre del entrevistado:"/>
                     <TextBox x:Name="txEntrevistado" 
                              KeyDown="TextBox_KeyDown"
                              Text="{Binding NombreEntrevistado, UpdateSourceTrigger=PropertyChanged}" 
@@ -92,6 +94,8 @@
 
                 <!--DataGrid-->
                 <StackPanel Orientation="Vertical" Grid.Column="0" VerticalAlignment="Bottom">
+
+                    <Label Content="Selecciona un empleado para ver sus datos:"></Label>
                     <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" 
                             CurrentCellChanged="dataGrid_CurrentCellChanged"
                             ItemsSource="{Binding Empleados}"
@@ -102,7 +106,7 @@
                     </DataGrid>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Grid.Column="1" Height="Auto" VerticalAlignment="Center">
-                    <Label Name="lbNombre" Content="Selecciona un entrevistado"/>
+                    <Label Name="lbNombre" Content="Selecciona un entrevistado" HorizontalAlignment="Center"/>
                     <Button Name="btRegistrar" Padding="2" Margin="8" Click="btRegistrar_Click">➕ Registrar</Button>
                     <Button Name="btBorrar" Padding="2" Margin="8" Click="btBorrar_Click">🗑 Borrar</Button>
                 </StackPanel>
@@ -159,7 +163,7 @@
 
                     <Label x:Name="txDocumentos" 
                                 KeyDown="TextBox_KeyDown"
-                                Content="Documentos del informe (seleccionar para ver)" 
+                                Content="Documentos del informe " 
                                 Width="Auto"
                                 Height="25"
                                 Padding="2"/>
@@ -196,7 +200,7 @@
 
             <Label x:Name="txContenidos" 
                             KeyDown="TextBox_KeyDown"
-                            Content="Conceptos del informe (seleccionar para ver)" 
+                            Content="Conceptos del informe" 
                             Width="Auto"
                             Height="25"
                             Padding="2"/>
@@ -214,7 +218,7 @@
                         </Grid.ColumnDefinitions>
                         <!--CONTENIDOS-->
                         <StackPanel Grid.Column="0">
-                            <ListBox x:Name="lbConceptox" 
+                            <ListBox x:Name="lbConceptos" 
                             Foreground="Black" Background="White"
                             Width="Auto"
                             Height="100" Margin="5" SelectionChanged="listBoxConceptos_SelectionChanged">
@@ -255,6 +259,7 @@
                                      TextWrapping="Wrap"
                                      AcceptsReturn="True"
                                      VerticalScrollBarVisibility="Auto"
+                                     IsEnabled="False"
                                      Margin="4"/>
                         </DockPanel>
                         <DockPanel Grid.Row="2" VerticalAlignment="Bottom">

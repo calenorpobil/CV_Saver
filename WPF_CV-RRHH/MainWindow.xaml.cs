@@ -166,6 +166,7 @@ namespace WPF_CV_RRHH
             dataGrid.CommitEdit();
 
             var selectedCell = dataGrid.CurrentCell;
+            int fila = dataGrid.SelectedIndex;
             if (!selectedCell.IsValid) return;
 
             // Resetear el índice seleccionado de Informes
@@ -176,14 +177,18 @@ namespace WPF_CV_RRHH
 
 
             InformeMostrar = null; // Importante
-            //docActual = null;
+            tbDescripcionConcepto.Text = "";
+            tbDescripcionConcepto.IsEnabled = false;
 
             int len = dataGrid.Columns.Count;
-            // Obtener el CODIGO de Empleado:
+            // Obtener el CODIGO del Empleado seleccionado:
             _codSeleccionado = getCodigoDataGrid();
-
             lbNombre.Content = getNombreDataGrid();
+
+            
             empActual = new Empleado(getNombreDataGrid(), getDniDataGrid());
+            
+
 
             if (!empActual.getDni().IsNullOrEmpty())
             {
@@ -270,21 +275,26 @@ namespace WPF_CV_RRHH
             {
                 MessageBox.Show(ex.Message);
             }
+
+            
         }
         //CARGAR EL INFORME
         private async void CargarInformes()
         {
-
-            connectionString = String.Concat("Server=", Otro, "; Database=CV-RRHH",
-            "; Integrated Security=True; TrustServerCertificate=True");
-
-            try
+            if(empActual != null)
             {
-                await CargarDatosAsyncInformes(); // Carga asíncrona
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                connectionString = String.Concat("Server=", Otro, "; Database=CV-RRHH",
+                "; Integrated Security=True; TrustServerCertificate=True");
+
+                try
+                {
+                    await CargarDatosAsyncInformes(); // Carga asíncrona
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                listBox.SelectedIndex = 0;
             }
         }
         //CARGAR DOCUMENTOS
@@ -302,22 +312,26 @@ namespace WPF_CV_RRHH
             {
                 MessageBox.Show(ex.Message);
             }
+            listBoxDocumentos.SelectedIndex = 0;
         }
 
         //CARGAR CONCEPTOS
         private async void CargarConceptos()
         {
-
-            connectionString = String.Concat("Server=", Otro, "; Database=CV-RRHH",
-            "; Integrated Security=True; TrustServerCertificate=True");
-
-            try
+            if (empActual.getNombre() != "")
             {
-                await CargarDatosAsyncConceptos(); // Carga asíncrona
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                connectionString = String.Concat("Server=", Otro, "; Database=CV-RRHH",
+                "; Integrated Security=True; TrustServerCertificate=True");
+
+                try
+                {
+                    await CargarDatosAsyncConceptos(); // Carga asíncrona
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                lbConceptos.SelectedIndex = 0;
             }
         }
 
@@ -344,24 +358,27 @@ namespace WPF_CV_RRHH
 
         private async void btBorrar_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("¿Estás seguro de que quieres borrar a "+empActual.getNombre()+
-                " con DNI "+empActual.getDni()+"?",
-                                "Save file",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (empActual!=null && empActual.getNombre()!="")
             {
-                bool borradoExitoso = await BorrarEmpleadoAsync();
-
-                if (borradoExitoso)
+                if (MessageBox.Show("¿Estás seguro de que quieres borrar a "+empActual.getNombre()+
+                    " con DNI "+empActual.getDni()+"?",
+                                    "Save file",
+                                    MessageBoxButton.YesNo,
+                                    MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    Dispatcher.Invoke(() =>
-                    {
-                        //MessageBox.Show("Empleado borrado correctamente");
-                    });
-                    string consultaEmpleado = consultaDataRow();
-                    Cargar(consultaEmpleado);
-                }
+                    bool borradoExitoso = await BorrarEmpleadoAsync();
 
+                    if (borradoExitoso)
+                    {
+                        Dispatcher.Invoke(() =>
+                        {
+                            //MessageBox.Show("Empleado borrado correctamente");
+                        });
+                        string consultaEmpleado = consultaDataRow();
+                        Cargar(consultaEmpleado);
+                    }
+
+                }
             }
         }
 
@@ -408,20 +425,23 @@ namespace WPF_CV_RRHH
          */
         private void lbInformes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int seleccionado = listBox.SelectedIndex;
+            if (empActual.getNombre() != "")
+            {
+                int seleccionado = listBox.SelectedIndex;
 
 
-            if (seleccionado >= 0 && seleccionado < Informes.Count)
-            {
-                InformeMostrar = Informes[seleccionado];
-                CargarDocumentos();
-                CargarConceptos();
-                txContenido.Content = "Selecciona un concepto";
-                tbDescripcionConcepto.Text = "";
-            }
-            else
-            {
-                InformeMostrar = null; // Limpiar si el índice no es válido
+                if (seleccionado >= 0 && seleccionado < Informes.Count)
+                {
+                    InformeMostrar = Informes[seleccionado];
+                    CargarDocumentos();
+                    CargarConceptos();
+                    txContenido.Content = "Selecciona un concepto";
+                    tbDescripcionConcepto.Text = "";
+                }
+                else
+                {
+                    InformeMostrar = null; // Limpiar si el índice no es válido
+                }
             }
 
         }
@@ -431,18 +451,22 @@ namespace WPF_CV_RRHH
          */
         private void listBoxConceptos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int seleccionado = lbConceptox.SelectedIndex;
+            int seleccionado = lbConceptos.SelectedIndex;
 
-
-            if (seleccionado >= 0 && seleccionado < Conceptos.Count)
+            if (InformeMostrar != null && empActual != null)
             {
-                conceptoActual = Conceptos[seleccionado];
-                txContenido.Content= conceptoActual.getNombre();
-                tbDescripcionConcepto.Text = conceptoActual.Descripcion;
-            }
-            else
-            {
-                conceptoActual = null; // Limpiar si el índice no es válido
+                if (seleccionado >= 0 && seleccionado < Conceptos.Count)
+                {
+                    tbDescripcionConcepto.IsEnabled = true;
+                    conceptoActual = Conceptos[seleccionado];
+                    txContenido.Content = conceptoActual.getNombre();
+                    tbDescripcionConcepto.Text = conceptoActual.Descripcion;
+                }
+                else
+                {
+                    tbDescripcionConcepto.IsEnabled = false;
+                    conceptoActual = null; // Limpiar si el índice no es válido
+                }
             }
 
         }
@@ -454,50 +478,64 @@ namespace WPF_CV_RRHH
         {
             string nombre = txEntrevistado.Text, dni = txDni.Text;
             // ¿Campos vacíos?
-            if (nombre.IsNullOrEmpty() && dni.IsNullOrEmpty())
+            if (nombre.IsNullOrEmpty() || dni.IsNullOrEmpty())
             {
                 MessageBox.Show("Rellena los campos de arriba. ");
             }
             else
             {
                 //MOSTRAR MENSAJE
-                if (MessageBox.Show("¿Estás seguro de que quieres registrar a " +
-                txEntrevistado.Text + " con DNI " + txDni.Text + "?",
-                    "Save file",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if (txDni.Text.IsNullOrEmpty())
                 {
-                    bool borradoExitoso = await RegistarEmpleadoAsync();
-
-                    if (borradoExitoso)
-                    {
-                        Dispatcher.Invoke(() =>
-                        {
-                            //MessageBox.Show("Empleado registrado correctamente");
-                        });
-                    }
-                    string consultaEmpleado = consultaDataRow();
-                    Cargar(consultaEmpleado);
-
+                    MessageBox.Show("El DNI no puede estar vacío. ");
                 }
+                else if (nombre.IsNullOrEmpty())
+                {
+                    MessageBox.Show("El nombre no puede estar vacío. ");
+                }
+                else{
+                    if (MessageBox.Show("¿Estás seguro de que quieres registrar a " +
+                    txEntrevistado.Text + " con DNI " + txDni.Text + "?",
+                        "Save file",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        bool registroExitoso = await RegistarEmpleadoAsync();
+
+                        if (registroExitoso)
+                        {
+                            Dispatcher.Invoke(() =>
+                            {
+                                //MessageBox.Show("Empleado registrado correctamente");
+                            });
+                        }
+                        string consultaEmpleado = consultaDataRow();
+                        Cargar(consultaEmpleado);
+
+                    }
+                }
+                txDni.Text = "";
+                txEntrevistado.Text = "";
             }
         }
-        
+
 
         private void listBoxDocumentos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int seleccionado = listBoxDocumentos.SelectedIndex;
 
+            if (InformeMostrar != null  && empActual!=null)
+            {
+                if (seleccionado >= 0 && seleccionado < Documentos.Count)
+                {
+                    docActual = Documentos[seleccionado];
+                }
+                else
+                {
+                    docActual = null; // Limpiar si el índice no es válido
+                }
+            }
             
-
-            if (seleccionado >= 0 && seleccionado < Documentos.Count)
-            {
-                docActual = Documentos[seleccionado];
-            }
-            else
-            {
-                docActual = null; // Limpiar si el índice no es válido
-            }
 
         }
 
@@ -550,23 +588,26 @@ namespace WPF_CV_RRHH
         }
         private async void btBorrarInforme_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("¿Estás seguro de que quieres borrar el informe del día " + InformeMostrar.getFechaInf() +
+            if (empActual != null && empActual.getNombre() != "")
+            {
+                if (MessageBox.Show("¿Estás seguro de que quieres borrar el informe del día " + InformeMostrar.getFechaInf() +
                 ", de " + empActual.getNombre() + "?",
                     "Save file",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                bool borradoExitoso = await BorrarInformeAsync(InformeMostrar.getFechaInf());
-
-                if (borradoExitoso)
                 {
-                    Dispatcher.Invoke(() =>
-                    {
-                        //MessageBox.Show("Empleado borrado correctamente");
-                        CargarInformes();
-                    });
-                }
+                    bool borradoExitoso = await BorrarInformeAsync(InformeMostrar.getFechaInf());
 
+                    if (borradoExitoso)
+                    {
+                        Dispatcher.Invoke(() =>
+                        {
+                            //MessageBox.Show("Empleado borrado correctamente");
+                            CargarInformes();
+                        });
+                    }
+
+                }
             }
 
 
@@ -626,68 +667,81 @@ namespace WPF_CV_RRHH
 
         private void btNuevoDocumento_click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            // Set filter for file extension and default file extension 
-            dlg.DefaultExt = ".png";
-            dlg.Filter = "";
-
-            // Display OpenFileDialog by calling ShowDialog method 
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox 
-            if (result == true)
+            if (InformeMostrar != null)
             {
-                // Open document 
-                string filename = dlg.FileName;
-                string tipo = dlg.GetType().Name;
-                Documento nuevoDoc = new Documento(filename, tipo, InformeMostrar.getFechaInf());
-                _ = NuevoDocumentoAsync(nuevoDoc);
-                CargarDocumentos();
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+                // Set filter for file extension and default file extension 
+                dlg.DefaultExt = ".png";
+                dlg.Filter = "";
+
+                // Display OpenFileDialog by calling ShowDialog method 
+                Nullable<bool> result = dlg.ShowDialog();
+
+                // Get the selected file name and display in a TextBox 
+                if (result == true)
+                {
+                    // Open document 
+                    string filename = dlg.FileName;
+                    string tipo = dlg.GetType().Name;
+                    Documento nuevoDoc = new Documento(filename, tipo, InformeMostrar.getFechaInf());
+                    _ = NuevoDocumentoAsync(nuevoDoc);
+                    CargarDocumentos();
+                }
+
             }
         }
 
         private void btEditarDocumento_click(object sender, RoutedEventArgs e)
         {
 
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            // Set filter for file extension and default file extension 
-            dlg.DefaultExt = ".png";
-            dlg.Filter = "";
-
-            // Display OpenFileDialog by calling ShowDialog method 
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox 
-            if (result == true)
+            if (InformeMostrar != null)
             {
-                // Open document 
-                string filename = dlg.FileName;
-                string tipo = dlg.GetType().Name;
-                Documento nuevoDoc = new Documento(filename, tipo, InformeMostrar.getFechaInf());
-                _ = EditarDocumentoAsync(nuevoDoc);
-                CargarDocumentos();
+                string rutaAntigua = docActual.RutaArchivo;
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+                // Set filter for file extension and default file extension 
+                dlg.DefaultExt = ".png";
+                dlg.Filter = "";
+
+                // Display OpenFileDialog by calling ShowDialog method 
+                Nullable<bool> result = dlg.ShowDialog();
+
+                // Get the selected file name and display in a TextBox 
+                if (result == true)
+                {
+                    // Open document 
+                    string filename = dlg.FileName;
+                    string tipo = dlg.GetType().Name;
+                    Documento nuevoDoc = new Documento(filename, tipo, InformeMostrar.getFechaInf());
+                    _ = EditarDocumentoAsync(nuevoDoc, rutaAntigua);
+                    CargarDocumentos();
+                }
+            
+
             }
         }
 
         private async void btBorrarDocumento_click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("¿Estás seguro de que quieres borrar el documento " + docActual.RutaArchivo+
-                " del empleado " + empActual.getNombre() + "?",
-                                "Save file",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (InformeMostrar != null)
             {
-                bool borradoExitoso = await BorrarDocumentoAsync(docActual);
-
-                if (borradoExitoso)
+                if (MessageBox.Show("¿Estás seguro de que quieres borrar el documento " + docActual.RutaArchivo +
+                    " del empleado " + empActual.getNombre() + "?",
+                                    "Save file",
+                                    MessageBoxButton.YesNo,
+                                    MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    Dispatcher.Invoke(() =>
+                    bool borradoExitoso = await BorrarDocumentoAsync(docActual);
+
+                    if (borradoExitoso)
                     {
-                        //MessageBox.Show("Empleado borrado correctamente");
-                    });
-                    CargarDocumentos();
+                        Dispatcher.Invoke(() =>
+                        {
+                            //MessageBox.Show("Empleado borrado correctamente");
+                        });
+                        CargarDocumentos();
+                    }
                 }
             }
         }
@@ -883,8 +937,8 @@ namespace WPF_CV_RRHH
                 Conceptos?.Clear();
                 Dispatcher.Invoke(() =>
                 {
-                    lbConceptox.ItemsSource = null;
-                    lbConceptox.Items.Refresh();
+                    lbConceptos.ItemsSource = null;
+                    lbConceptos.Items.Refresh();
                 });
                 return;
             }
@@ -927,8 +981,8 @@ namespace WPF_CV_RRHH
                             // Actualizar UI
                             Dispatcher.Invoke(() =>
                             {
-                                lbConceptox.ItemsSource = Conceptos;
-                                lbConceptox.DisplayMemberPath = "Nombre";
+                                lbConceptos.ItemsSource = Conceptos;
+                                lbConceptos.DisplayMemberPath = "Nombre";
                             });
                         }
                     }
@@ -984,69 +1038,83 @@ namespace WPF_CV_RRHH
 
         private void btNuevoConcepto_click(object sender, RoutedEventArgs e)
         {
-            VentanaNuevoConcepto v = new VentanaNuevoConcepto();
-            v.Owner = this;
-
-            Concepto nuevo;
-
-            if (v.ShowDialog() == true) // Si el usuario aceptó
+            if (InformeMostrar != null && empActual.getNombre()!="")
             {
+                VentanaNuevoConcepto v = new VentanaNuevoConcepto();
+                v.Owner = this;
 
-                string resultado = v.Resultado;
-                nuevo = new Concepto(resultado, "", InformeMostrar.getFechaInf());
-                _ = NuevoConceptoAsync(nuevo);
-                Conceptos.Add(nuevo);
-                CargarConceptos();
+                Concepto nuevo;
+
+                if (v.ShowDialog() == true) // Si el usuario aceptó
+                {
+                    string resultado = v.Resultado;
+                    if (resultado != "")
+                    {
+                        nuevo = new Concepto(resultado, "", InformeMostrar.getFechaInf());
+                        _ = NuevoConceptoAsync(nuevo);
+                        Conceptos.Add(nuevo);
+                        CargarConceptos();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Escribe un nombre de concepto adecuado. ");
+                    }
                 
+                }
             }
 
 
         }
         private void btEditarConcepto_click(object sender, RoutedEventArgs e)
         {
-            VentanaEditarConcepto v = new VentanaEditarConcepto();
-            v.Owner = this;
-
-            v.txConcepto.Text = conceptoActual.getNombre();
-            string nombreViejo = conceptoActual.getNombre();
-            string desc = conceptoActual.getDescripcion();
-            Concepto nuevo;
-
-            if (v.ShowDialog() == true) // Si el usuario aceptó
+            if (InformeMostrar != null)
             {
+                VentanaEditarConcepto v = new VentanaEditarConcepto();
+                v.Owner = this;
 
-                string resultado = v.Resultado;
-                Conceptos.Remove(conceptoActual);
-                nuevo = new Concepto(resultado, desc, InformeMostrar.getFechaInf());
-                _ = EditarConceptoAsync(nuevo, nombreViejo);
-                Conceptos.Add(nuevo);
-                CargarConceptos();
-                tbDescripcionConcepto.Text = "";
+                v.txConcepto.Text = conceptoActual.getNombre();
+                string nombreViejo = conceptoActual.getNombre();
+                string desc = conceptoActual.getDescripcion();
+                Concepto nuevo;
+
+                if (v.ShowDialog() == true) // Si el usuario aceptó
+                {
+
+                    string resultado = v.Resultado;
+                    Conceptos.Remove(conceptoActual);
+                    nuevo = new Concepto(resultado, desc, InformeMostrar.getFechaInf());
+                    _ = EditarConceptoAsync(nuevo, nombreViejo);
+                    Conceptos.Add(nuevo);
+                    CargarConceptos();
+                    tbDescripcionConcepto.Text = "";
+                }
             }
-
 
         }
 
         private async void btBorrarConcepto_click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("¿Estás seguro de que quieres borrar el concepto "+conceptoActual.getNombre()+ 
-                " de  "+ empActual.getNombre() +"?",
+            if (InformeMostrar != null)
+            { 
+                if (MessageBox.Show("¿Estás seguro de que quieres borrar el concepto " + conceptoActual.getNombre() +
+                " de  " + empActual.getNombre() + "?",
                                 "Save file",
                                 MessageBoxButton.YesNo,
                                 MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                bool borradoExitoso = await BorrarConceptoAsync(conceptoActual);
-
-                if (borradoExitoso)
                 {
-                    Dispatcher.Invoke(() =>
+                    bool borradoExitoso = await BorrarConceptoAsync(conceptoActual);
+
+                    if (borradoExitoso)
                     {
-                        //MessageBox.Show("Empleado borrado correctamente");
-                    });
-                    CargarConceptos();
+                        Dispatcher.Invoke(() =>
+                        {
+                            //MessageBox.Show("Empleado borrado correctamente");
+                        });
+                        CargarConceptos();
+                        tbDescripcionConcepto.Text = "";
+                    }
 
                 }
-
             }
 
         }
@@ -1222,14 +1290,14 @@ namespace WPF_CV_RRHH
                         }
                         catch (SqlException ex)
                         {
-                            if (ex.ErrorCode == -2146232060)
+                            if(ex.ErrorCode == -2146232060)
                             {
-                                MessageBox.Show("Ya existe otro documento igual. ");
+                                MessageBox.Show($"Este empleado ya tiene ese documento añadido en esa fecha. Elige otro. ");
                                 return false;
                             }
                             else
                             {
-                                MessageBox.Show($"Error al registrar el informe: {ex.Message}, error:  {ex.ErrorCode}");
+                                MessageBox.Show($"Error al registrar el documento: {ex.Message}, error:  {ex.ErrorCode}");
                                 return false;
                             }
                         }
@@ -1250,10 +1318,10 @@ namespace WPF_CV_RRHH
             }
         }
         //EDITAR DOCUMENTO
-        public async Task<bool> EditarDocumentoAsync(Documento doc)
+        public async Task<bool> EditarDocumentoAsync(Documento doc, string rutaAntigua)
         {
             string consulta = "UPDATE CONTENIDOS_EN_EL_CV " +
-                "SET RutaArchivo = @Ruta WHERE (FK_CODIGO_INF = @ForaneaInf)";
+                "SET RutaArchivo = @Ruta WHERE (FK_CODIGO_INF = @ForaneaInf and RutaArchivo = @RutaAntigua)";
             try
             {
                 using (var connection = new SqlConnection(connectionString))
@@ -1265,6 +1333,7 @@ namespace WPF_CV_RRHH
                         // Parámetro para evitar inyección SQL
                         int a = 0;
                         command.Parameters.AddWithValue("@Ruta", $"{doc.RutaArchivo}");
+                        command.Parameters.AddWithValue("@RutaAntigua", $"{rutaAntigua}");
                         command.Parameters.AddWithValue("@ForaneaInf", $"{doc.FK_CODIGO_INF}");
                         try
                         {
@@ -1272,16 +1341,8 @@ namespace WPF_CV_RRHH
                         }
                         catch (SqlException ex)
                         {
-                            if (ex.ErrorCode == -2146232060)
-                            {
-                                MessageBox.Show("Ya existe otro documento igual. ");
-                                return false;
-                            }
-                            else
-                            {
-                                MessageBox.Show($"Error al registrar el informe: {ex.Message}, error:  {ex.ErrorCode}");
-                                return false;
-                            }
+                            MessageBox.Show($"Error al registrar el informe: {ex.Message}, error:  {ex.ErrorCode}");
+                            return false;
                         }
                         if (a == 1)
                         {
@@ -1498,12 +1559,15 @@ namespace WPF_CV_RRHH
 
         private void tbDescripcionGuardar(object sender, RoutedEventArgs e)
         {
-            if(lbConceptox.SelectedItems.Count != 0)
+            if (InformeMostrar != null)
             {
-                Concepto nuevaDesc = new Concepto(conceptoActual.getNombre(), tbDescripcionConcepto.Text, conceptoActual.getCodigo());
-                Conceptos.Remove(conceptoActual);
-                Conceptos.Add(nuevaDesc);
-                _ = EditarConceptoAsync(nuevaDesc, nuevaDesc.getNombre());
+                if (lbConceptos.SelectedItems.Count != 0)
+                {
+                    Concepto nuevaDesc = new Concepto(conceptoActual.getNombre(), tbDescripcionConcepto.Text, conceptoActual.getCodigo());
+                    Conceptos.Remove(conceptoActual);
+                    Conceptos.Add(nuevaDesc);
+                    _ = EditarConceptoAsync(nuevaDesc, nuevaDesc.getNombre());
+                }
             }
 
 
