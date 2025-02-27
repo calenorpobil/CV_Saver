@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WPF_CV-RRHH")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8f7b342e9fd619dbc56e632f843a52dffd5918a5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+19f93766f3bb7437ae3b27321c922d1c13677e4a")]
 [assembly: System.Reflection.AssemblyProductAttribute("WPF_CV-RRHH")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WPF_CV-RRHH")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

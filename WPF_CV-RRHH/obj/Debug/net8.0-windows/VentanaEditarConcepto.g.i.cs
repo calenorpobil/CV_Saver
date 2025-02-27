@@ -77,7 +77,7 @@ namespace WPF_CV_RRHH {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/WPF_CV-RRHH;V1.0.0.0;component/ventanaeditarconcepto.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/WPF_CV-RRHH;component/ventanaeditarconcepto.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\VentanaEditarConcepto.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

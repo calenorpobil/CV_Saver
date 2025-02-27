@@ -274,17 +274,19 @@ namespace WPF_CV_RRHH
         //CARGAR EL INFORME
         private async void CargarInformes()
         {
-
-            connectionString = String.Concat("Server=", Otro, "; Database=CV-RRHH",
-            "; Integrated Security=True; TrustServerCertificate=True");
-
-            try
+            if(empActual != null)
             {
-                await CargarDatosAsyncInformes(); // Carga asíncrona
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                connectionString = String.Concat("Server=", Otro, "; Database=CV-RRHH",
+                "; Integrated Security=True; TrustServerCertificate=True");
+
+                try
+                {
+                    await CargarDatosAsyncInformes(); // Carga asíncrona
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
         //CARGAR DOCUMENTOS
@@ -431,17 +433,19 @@ namespace WPF_CV_RRHH
          */
         private void listBoxConceptos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int seleccionado = lbConceptox.SelectedIndex;
+            int seleccionado = lbConceptos.SelectedIndex;
 
 
             if (seleccionado >= 0 && seleccionado < Conceptos.Count)
             {
+                tbDescripcionConcepto.IsEnabled= true;
                 conceptoActual = Conceptos[seleccionado];
                 txContenido.Content= conceptoActual.getNombre();
                 tbDescripcionConcepto.Text = conceptoActual.Descripcion;
             }
             else
             {
+                tbDescripcionConcepto.IsEnabled = false;
                 conceptoActual = null; // Limpiar si el índice no es válido
             }
 
@@ -461,25 +465,34 @@ namespace WPF_CV_RRHH
             else
             {
                 //MOSTRAR MENSAJE
-                if (MessageBox.Show("¿Estás seguro de que quieres registrar a " +
-                txEntrevistado.Text + " con DNI " + txDni.Text + "?",
-                    "Save file",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if (txDni.Text.IsNullOrEmpty())
                 {
-                    bool borradoExitoso = await RegistarEmpleadoAsync();
-
-                    if (borradoExitoso)
-                    {
-                        Dispatcher.Invoke(() =>
-                        {
-                            //MessageBox.Show("Empleado registrado correctamente");
-                        });
-                    }
-                    string consultaEmpleado = consultaDataRow();
-                    Cargar(consultaEmpleado);
-
+                    MessageBox.Show("El campo DNI no puede estar vacío. ");
                 }
+                else
+                {
+                    if (MessageBox.Show("¿Estás seguro de que quieres registrar a " +
+                    txEntrevistado.Text + " con DNI " + txDni.Text + "?",
+                        "Save file",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        bool registroExitoso = await RegistarEmpleadoAsync();
+
+                        if (registroExitoso)
+                        {
+                            Dispatcher.Invoke(() =>
+                            {
+                                //MessageBox.Show("Empleado registrado correctamente");
+                            });
+                        }
+                        string consultaEmpleado = consultaDataRow();
+                        Cargar(consultaEmpleado);
+
+                    }
+                }
+                txDni.Text = "";
+                txEntrevistado.Text = "";
             }
         }
         
@@ -883,8 +896,8 @@ namespace WPF_CV_RRHH
                 Conceptos?.Clear();
                 Dispatcher.Invoke(() =>
                 {
-                    lbConceptox.ItemsSource = null;
-                    lbConceptox.Items.Refresh();
+                    lbConceptos.ItemsSource = null;
+                    lbConceptos.Items.Refresh();
                 });
                 return;
             }
@@ -927,8 +940,8 @@ namespace WPF_CV_RRHH
                             // Actualizar UI
                             Dispatcher.Invoke(() =>
                             {
-                                lbConceptox.ItemsSource = Conceptos;
-                                lbConceptox.DisplayMemberPath = "Nombre";
+                                lbConceptos.ItemsSource = Conceptos;
+                                lbConceptos.DisplayMemberPath = "Nombre";
                             });
                         }
                     }
@@ -1498,7 +1511,7 @@ namespace WPF_CV_RRHH
 
         private void tbDescripcionGuardar(object sender, RoutedEventArgs e)
         {
-            if(lbConceptox.SelectedItems.Count != 0)
+            if(lbConceptos.SelectedItems.Count != 0)
             {
                 Concepto nuevaDesc = new Concepto(conceptoActual.getNombre(), tbDescripcionConcepto.Text, conceptoActual.getCodigo());
                 Conceptos.Remove(conceptoActual);

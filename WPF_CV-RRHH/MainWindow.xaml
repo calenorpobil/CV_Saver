@@ -214,7 +214,7 @@
                         </Grid.ColumnDefinitions>
                         <!--CONTENIDOS-->
                         <StackPanel Grid.Column="0">
-                            <ListBox x:Name="lbConceptox" 
+                            <ListBox x:Name="lbConceptos" 
                             Foreground="Black" Background="White"
                             Width="Auto"
                             Height="100" Margin="5" SelectionChanged="listBoxConceptos_SelectionChanged">
@@ -255,6 +255,7 @@
                                      TextWrapping="Wrap"
                                      AcceptsReturn="True"
                                      VerticalScrollBarVisibility="Auto"
+                                     IsEnabled="False"
                                      Margin="4"/>
                         </DockPanel>
                         <DockPanel Grid.Row="2" VerticalAlignment="Bottom">
