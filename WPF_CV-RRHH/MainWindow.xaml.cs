@@ -169,11 +169,11 @@ namespace WPF_CV_RRHH
             int fila = dataGrid.SelectedIndex;
             if (!selectedCell.IsValid) return;
 
-            // Resetear el índice seleccionado de Informes
             Dispatcher.Invoke(() =>
             {
                 listBox.SelectedIndex = -1; // Resetear el índice seleccionado
             });
+
 
 
             InformeMostrar = null; // Importante
@@ -189,7 +189,6 @@ namespace WPF_CV_RRHH
             empActual = new Empleado(getNombreDataGrid(), getDniDataGrid());
             
 
-
             if (!empActual.getDni().IsNullOrEmpty())
             {
                 CargarInformes();
@@ -197,6 +196,7 @@ namespace WPF_CV_RRHH
                 CargarConceptos();
                 tbDescripcionConcepto.Text = "";
             }
+
         }
 
         private string getNombreDataGrid()
@@ -786,7 +786,7 @@ namespace WPF_CV_RRHH
         //CONSULTA INFORMES
         private async Task CargarDatosAsyncInformes()
         {
-            string consulta = "SELECT * FROM informe_a_fecha WHERE FK_CODIGO_EMP LIKE @Codigo";
+            string consulta = "SELECT * FROM informe_a_fecha WHERE FK_CODIGO_EMP = @Codigo";
 
             try
             {
@@ -869,7 +869,7 @@ namespace WPF_CV_RRHH
                 return;
             }
             string consulta = "SELECT * FROM CONTENIDOS_EN_EL_CV WHERE FK_CODIGO_INF = '" +
-                InformeMostrar.getFechaInf().ToString() + "'";
+                InformeMostrar.getFechaInf().ToString() + "' and FK_CODIGO_EMP_C = '"+empActual.getDni()+"'";
 
             try
             {
@@ -1227,7 +1227,8 @@ namespace WPF_CV_RRHH
             string foranea, DateTime viejaFecha)
         {
             string consulta = "UPDATE INFORME_A_FECHA " +
-                "SET FECHA = @Fecha WHERE (FK_CODIGO_EMP = @ForaneaEmp and FECHA = @id)";
+                "SET FECHA = @Fecha, FK_CODIGO_EMP = @ForaneaEmp " +
+                "WHERE (FK_CODIGO_EMP = @ForaneaEmp and FECHA = @id)";
             try
             {
                 using (var connection = new SqlConnection(connectionString))
@@ -1270,7 +1271,7 @@ namespace WPF_CV_RRHH
         public async Task<bool> NuevoDocumentoAsync(Documento doc)
         {
             string consulta = "INSERT INTO CONTENIDOS_EN_EL_CV " +
-                "(RutaArchivo, TipoMime, FK_CODIGO_INF) VALUES (@Ruta, @Tipo, @Informe)";
+                "(RutaArchivo, TipoMime, FK_CODIGO_INF, FK_CODIGO_EMP_C) VALUES (@Ruta, @Tipo, @Informe, @Emp)";
             try
             {
                 using (var connection = new SqlConnection(connectionString))
@@ -1284,6 +1285,7 @@ namespace WPF_CV_RRHH
                         command.Parameters.AddWithValue("@Ruta", $"{doc.RutaArchivo}");
                         command.Parameters.AddWithValue("@Tipo", $"{doc.TipoMime}");
                         command.Parameters.AddWithValue("@Informe", $"{doc.FK_CODIGO_INF}");
+                        command.Parameters.AddWithValue("@Informe", $"{empActual.getDni()}");
                         try
                         {
                             a = command.ExecuteNonQuery();
@@ -1410,7 +1412,7 @@ namespace WPF_CV_RRHH
         public async Task<bool> NuevoConceptoAsync(Concepto con)
         {
             string consulta = "INSERT INTO CONCEPTOS_PARA_CV " +
-                "(FK_CODIGO_INF, NOMBRE, DESCRIPCION) VALUES (@Codigo, @Nombre, @Desc)";
+                "(FK_CODIGO_INF, FK_CODIGO_EMP_C, NOMBRE, DESCRIPCION) VALUES (@Codigo, @CodEmp, @Nombre, @Desc)";
             try
             {
                 using (var connection = new SqlConnection(connectionString))
@@ -1422,6 +1424,7 @@ namespace WPF_CV_RRHH
                         // Parámetro para evitar inyección SQL
                         int a = 0;
                         command.Parameters.AddWithValue("@Codigo", $"{con.getCodigo()}");
+                        command.Parameters.AddWithValue("@CodEmp", $"{empActual.getDni()}");
                         command.Parameters.AddWithValue("@Nombre", $"{con.getNombre()}");
                         command.Parameters.AddWithValue("@Desc", $"{con.getDescripcion()}");
                         try
@@ -1438,7 +1441,7 @@ namespace WPF_CV_RRHH
                             }
                             else
                             {
-                                MessageBox.Show($"Error al registrar el informe: {ex.Message}, error:  {ex.ErrorCode}");
+                                MessageBox.Show($"Error al registrar el concepto: {ex.Message}, error:  {ex.ErrorCode}");
                                 return false;
                             }
                         }
