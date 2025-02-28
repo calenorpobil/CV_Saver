@@ -786,7 +786,7 @@ namespace WPF_CV_RRHH
         //CONSULTA INFORMES
         private async Task CargarDatosAsyncInformes()
         {
-            string consulta = "SELECT * FROM informe_a_fecha WHERE FK_CODIGO_EMP = @Codigo";
+            string consulta = "SELECT * FROM informe_a_fecha WHERE FK_CODIGO_EMP = '"+ empActual.getDni()+"'";
 
             try
             {
@@ -801,7 +801,7 @@ namespace WPF_CV_RRHH
                         // Parámetro seguro
                         if (!_codSeleccionado.Equals(null))
                         {
-                            command.Parameters.AddWithValue("@Codigo", $"%{empActual.getDni()}%");
+                            //command.Parameters.AddWithValue("@Codigo", $"%{empActual.getDni()}%");
                         }
 
                         // Ejecutar consulta
@@ -1285,7 +1285,7 @@ namespace WPF_CV_RRHH
                         command.Parameters.AddWithValue("@Ruta", $"{doc.RutaArchivo}");
                         command.Parameters.AddWithValue("@Tipo", $"{doc.TipoMime}");
                         command.Parameters.AddWithValue("@Informe", $"{doc.FK_CODIGO_INF}");
-                        command.Parameters.AddWithValue("@Informe", $"{empActual.getDni()}");
+                        command.Parameters.AddWithValue("@Emp", $"{empActual.getDni()}");
                         try
                         {
                             a = command.ExecuteNonQuery();

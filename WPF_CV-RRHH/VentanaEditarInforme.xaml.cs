@@ -29,8 +29,12 @@ namespace WPF_CV_RRHH
 
         private void Aceptar_Click(object sender, RoutedEventArgs e)
         {
-            Resultado = dpFecha.Text; // Capturar dato del TextBox
-            this.DialogResult = true; // Cierra la ventana con "Aceptar"
+            if (dpFecha.Text != "")
+            {
+
+                Resultado = dpFecha.Text; // Capturar dato del TextBox
+                this.DialogResult = true; // Cierra la ventana con "Aceptar"
+            }
         }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
